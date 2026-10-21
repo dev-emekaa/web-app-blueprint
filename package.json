@@ -1,0 +1,28 @@
+{
+  "name": "web-app-blueprint",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Design-to-integration web client workflow for Claude Code — the docs come first, the design system governs every screen, and the backend's api-docs drive integration.",
+  "type": "module",
+  "bin": {
+    "web-app-blueprint": "bin/install.mjs"
+  },
+  "scripts": {
+    "package": "node scripts/build-folder.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "assets",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-emekaa/web-app-blueprint.git"
+  },
+  "license": "UNLICENSED",
+  "author": "dev-emeka"
+}
