@@ -55,7 +55,7 @@ Exactly as `coding-standards` → Mock mode describes:
 
 ## Step 5 — Design tokens *(when `DESIGN.md` exists; otherwise placeholders, and re-run this step later)*
 
-- `styles/globals.css` defining `DESIGN.md`'s colors, radii, spacing and type scale as CSS variables under the shadcn names — each color in `:root`, its `-dark` twin under `.dark` — and the shadows from its Elevation & Depth table, all exposed to Tailwind.
+- `styles/globals.css` defining `DESIGN.md`'s colors, radii, spacing and type scale as CSS variables under the shadcn names — each color in `:root`, its `-dark` twin under `.dark` — the shadows from its Elevation & Depth table, and the breakpoints from its Responsive table where they differ from Tailwind's, all exposed to Tailwind.
 - The shadcn components adjusted to the design system's radii, borders, focus rings and type.
 - The fonts `DESIGN.md` names, loaded with `next/font`.
 - The durations and easings from its Motion table as CSS variables, and a `lib/motion.ts` exporting them for Motion.

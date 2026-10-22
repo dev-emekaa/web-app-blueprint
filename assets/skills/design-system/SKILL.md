@@ -75,7 +75,7 @@ Tokens go in the front matter, using only the format's keys. Values the format h
 ```yaml
 ---
 version: alpha
-name: {Product} Design System
+name: "{Product} Design System"
 description: One paragraph that captures the whole system in words.
 colors:
   background: "#…"
@@ -85,10 +85,11 @@ colors:
   # …the same pair for primary, primary-foreground, secondary, secondary-foreground, muted, muted-foreground,
   # accent, accent-foreground, destructive, success, warning, info, border, input, ring, card, card-foreground,
   # popover, popover-foreground, chart-1 to chart-5, sidebar, sidebar-foreground, sidebar-primary,
-  # sidebar-accent, sidebar-border, and the product's own tokens
+  # sidebar-primary-foreground, sidebar-accent, sidebar-accent-foreground, sidebar-border, sidebar-ring,
+  # and the product's own tokens
 typography:
   display: { fontFamily: …, fontSize: …, fontWeight: …, lineHeight: …, letterSpacing: … }
-  # …h1, h2, h3, h4, body-lg, body-md, body-sm, caption, label-md, button, mono, numeric (fontFeature: "tnum")
+  # …h1, h2, h3, h4, body-lg, body-md, body-sm, caption, label-md, button, mono, numeric (fontFeature: '"tnum"')
 rounded: { none: 0px, sm: …, md: …, lg: …, xl: …, full: 9999px }
 spacing: { base: 4px, … }            # the scale, matching Tailwind's steps
 components:
@@ -104,7 +105,7 @@ Component entries use only the format's properties: `backgroundColor`, `textColo
 Then the sections, with exactly these `##` headings in this order:
 
 ```markdown
-## Overview            — the system in a paragraph, then Key Characteristics: the five to eight decisions that make it this product
+## Overview            — the system in a paragraph; the principles from Step 3; then Key Characteristics: the five to eight visual decisions that make it this product
 ## Colors              — grouped by role (brand and accent, surface, text, semantic, charts), each with its use; the accent policy; hover, active and disabled; light and dark; a contrast table
 ## Typography          — the families, why, and where each loads from; a hierarchy table (token, size, weight, line height, tracking, use); measure and tracking rules; tabular figures for numbers in data
 ## Layout              — the base unit and the spacing scale with use; the app shell; content widths; grids; page anatomy (header, filters, content, actions)
@@ -127,7 +128,7 @@ Then the sections, with exactly these `##` headings in this order:
 - **Every value is a decision, with a use.** A token nobody is told when to use will be used wrongly.
 - **Tokens are the source; prose explains them.** A value in prose always matches its token, and names it (`{colors.primary}`).
 - **States are not optional.** A component entry without its disabled, loading and error states is incomplete.
-- **Plain where it can be, precise where it must be.** The principles and voice sections read like a person wrote them; the token and component sections are exact.
+- **Plain where it can be, precise where it must be.** The Overview and Content and Voice sections read like a person wrote them; the token and component sections are exact.
 - **Contrast is computed, not assumed.** Every text-on-surface pair in the colors table shows its ratio and passes AA (4.5:1 body, 3:1 large text and UI). Fix the palette rather than the rule.
 - **Nothing that belongs elsewhere.** No code, no component props, no business rules, no screen inventories. The system says how things look, move and read; the screen specs say what they contain.
 - **No stub sections.** A section with nothing to say for this product is left out.
@@ -135,7 +136,7 @@ Then the sections, with exactly these `##` headings in this order:
 
 ## Step 5 — Verify and apply
 
-1. **Lint it:** `npx @google/design.md lint DESIGN.md`. No errors, and every contrast warning fixed in the palette. Orphaned-token warnings are expected for colors no component token can reference (borders, rings, charts, destructive); any other warning is resolved.
+1. **Lint it:** `npx @google/design.md lint DESIGN.md`. No errors. The linter checks every component pair against 4.5:1, so a contrast warning is fixed in the palette unless the pair is large text or a non-text element that the contrast table shows at 3:1 or more. Orphaned-token warnings are expected for colors no component token can reference (borders, rings, charts); any other warning is resolved.
 2. **Read it back as a builder.** Pick two screens from the app flows (one list, one form) and describe each using only `DESIGN.md`. Anything you had to invent is a gap; fill it.
 3. **Check the tokens** cover every shadcn variable with its `-dark` twin, and every pair in the contrast table passes.
 4. **Apply the tokens** if the foundation exists: run `/web-setup`'s design tokens step so `globals.css` and the shadcn components carry the system, then render the component set on a dev-only route (`/design-check`, absent in production) and look at it, light and dark, at phone and desktop widths. Fix what looks wrong in the system, not in the screen.
@@ -143,4 +144,4 @@ Then the sections, with exactly these `##` headings in this order:
 
 ## Later phases
 
-A later phase extends the system when it introduces something the system does not cover: a new component, a new data visualisation, a new surface. Add the tokens and the section text in place, lint again, and compare with the committed version (`git show HEAD:DESIGN.md > /tmp/DESIGN.prev.md`, then `npx @google/design.md diff /tmp/DESIGN.prev.md DESIGN.md`); the token changes it lists go in the report. Never change an existing token's value in a later phase without a screen-by-screen check of what uses it; a palette change is a project, not an extension.
+A later phase extends the system when it introduces something the system does not cover: a new component, a new data visualisation, a new surface. Add the tokens and the section text in place, lint again, and compare with the committed version (`git show HEAD:DESIGN.md > /tmp/DESIGN.prev.md`, then `npx @google/design.md diff /tmp/DESIGN.prev.md DESIGN.md`); the token changes it lists go in the report. Update the `Design system` row in `CLAUDE.md` with the phase. Never change an existing token's value in a later phase without a screen-by-screen check of what uses it; a palette change is a project, not an extension.

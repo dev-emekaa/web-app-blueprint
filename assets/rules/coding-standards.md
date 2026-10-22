@@ -198,7 +198,7 @@ No React Context for state that changes often; it re-renders every consumer. Con
 - **Dark mode** is CSS variables switched by `next-themes`; components never check the theme in JavaScript to pick a color.
 - **Responsive, mobile first**: base styles are the phone layout, breakpoints add from there. Touch targets at least 44px on touch layouts. No horizontal page scroll at any width.
 - **Class order** is Prettier's (`prettier-plugin-tailwindcss`), so diffs stay readable.
-- **Motion** follows `DESIGN.md`'s Motion section: durations and easings from its tokens, `prefers-reduced-motion` respected everywhere, layout animations only through Motion's `layout` prop.
+- **Motion** follows `DESIGN.md`'s Motion section: durations and easings from its table, `prefers-reduced-motion` respected everywhere, layout animations only through Motion's `layout` prop.
 
 ## 12. Performance
 
