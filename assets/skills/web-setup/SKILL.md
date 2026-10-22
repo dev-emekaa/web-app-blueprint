@@ -39,19 +39,19 @@ Exactly as `coding-standards` → sections 3 to 5 describe:
 - `proxy.ts` with its matcher, the refresh-before-render logic, the protected-route redirect with a validated `returnTo`, and the per-request CSP nonce and headers from `security`.
 - `lib/query-client.ts` with the defaults (`staleTime`, retry rules) and the per-request server factory. The `HydrationBoundary` pattern is shown by the example feature in Step 4.
 - `hooks/use-me.ts`, the sign-out helper with cache clearing and the `BroadcastChannel`, and the sign-in cache reset.
-- `pnpm api:types`, generating `types/api.ts` from the backend's OpenAPI spec recorded in `CLAUDE.md` (a URL, or a checked-in spec file until the backend exposes one).
+- `pnpm api:types`, generating `types/api.ts` from the backend's OpenAPI spec recorded in `CLAUDE.md`. The backend exposes one only once it is built, so the script is wired here and first run at the first integration; until then every feature's types are provisional, per `coding-standards` → HTTP client.
 - `nuqs` and its adapter in the root layout.
 - **Local dev against a deployed backend:** a `pnpm dev:staging` script that runs Next's HTTPS dev mode on `local.{domain}` with `NEXT_PUBLIC_API_URL` pointed at staging, and a note in the infra guide on the hosts entry. Without it the backend's parent-domain cookies never reach `localhost`, and sign-in appears broken.
 
 ## Step 4 — Mock mode
 
-Exactly as `coding-standards` → Mock mode describes:
+The semantics — the mode switch, passthrough, cookie re-homing, sessions, the sign-in-first rule — live in `coding-standards` → Mock mode and are not restated here. This step creates the pieces:
 
-- The mock API route handler `app/api/mock/[...path]/route.ts`, dispatching to `src/mocks/index.ts`, with passthrough to the real API for paths with no handler — forwarding cookies and headers, and stripping the `Domain` attribute from every `Set-Cookie` on the way back — enabled by `NEXT_PUBLIC_API_MODE=mock` and answering 404 otherwise.
+- `app/api/mock/[...path]/route.ts`, the mock API route, and the `NEXT_PUBLIC_API_MODE` switch in `core`.
 - The handler helper: `defineHandlers({ 'GET /orders': ({ query, session }) => ... })`, with path parameters, latency simulation, in-memory state per session, and the `?mock=error` switch.
 - `src/mocks/msw.ts`, converting the same handlers to MSW for Vitest.
-- **Mock auth** in `src/mocks/auth.ts`: sign-in, sign-out, refresh and `me` for the conventional auth paths, setting and clearing the real cookie names with JWT-shaped values from the route handler's response, so `proxy.ts`, `serverFetch`, `clientFetch` and `useMe` work unchanged. The auth feature area's own `mocks/` replaces it.
-- One example feature folder, `features/_example/`, showing a query hook, a mutation hook, fixtures, handlers, a screen, and the server prefetch with `HydrationBoundary` on its page, deleted by the first real build.
+- `src/mocks/auth.ts`, the mock auth for the conventional auth paths (`/auth/sign-in`, `/auth/sign-out`, `/auth/refresh`, `/auth/me` — corrected at integration).
+- One example feature folder, `features/_example/`, showing provisional types, a query hook, a mutation hook, fixtures, handlers, a screen, and the server prefetch with `HydrationBoundary` on its page, deleted by the first real build.
 
 ## Step 5 — Design tokens *(when `DESIGN.md` exists; otherwise placeholders, and re-run this step later)*
 
@@ -81,7 +81,7 @@ Exactly as `coding-standards` → Mock mode describes:
 ## Step 9 — Docs sync with the backend
 
 - `scripts/docs-sync.mjs` with `pnpm docs:pull` and `pnpm docs:push`, reading the backend repo path from `CLAUDE.md`:
-  - **pull** copies from the backend every doc `documentation-conventions` lists as arriving from it, plus the backend's `docs/screen-specs/` and phase screen-spec files where they exist, and `docs/integration-handoff/` where it exists, replacing this repo's copies, and reports what changed. It refuses to overwrite a file with uncommitted local changes.
+  - **pull** copies from the backend every doc `documentation-conventions` lists as arriving from it, plus the backend's `docs/screen-specs/` and phase screen-spec files where they exist, and `docs/integration-handoff/` where it exists, replacing this repo's copies, and reports what changed. A file an earlier pull brought that no longer exists in the backend is deleted here and reported — the backend's promotion deletes a feature's phase folder, and the canonical files are then the specs. It refuses to overwrite or delete a file with uncommitted local changes.
   - **push `--specs {file}`** copies one screen-spec file (a canonical area file, or a phase feature's file) to the same path in the backend's `docs/`; **push `--handoff`** copies `docs/integration-handoff/`, after checking that the backend's copy is the version this repo last pulled (it keeps that version's hash), and stops with a message to pull first if it is not. Push copies nothing else, and refuses to copy a file with uncommitted changes, so what the backend receives is always a committed version.
 - The `docs/` folders from the documentation map, with `.gitkeep` files where nothing exists yet. `docs/feature-areas.md` is never created here; it arrives from the backend.
 
@@ -92,7 +92,7 @@ Write `docs/infra/infra-setup.md`: every step only I can do, numbered, so stagin
 - **On Vercel:** the two projects, their domains (`staging.{domain}`, `app.{domain}`), environment values per project (from `.env.example`, production values separate), automatic production deploys off, the deploy token for the workflows, and the Git integration limited to previews.
 - **On GitHub:** branch protection with PR checks required, squash merges, the release owners (whose usernames go into the production workflow), the `staging` and `production` environments holding the Vercel token and project ids, secret scanning with push protection.
 - **DNS:** the app subdomain per environment, on the same parent domain as the API so the cookies are shared.
-- **Elsewhere:** the Sentry project per environment, the stock photo API keys and the image generation account if `/web-build` will use them, and the analytics projects where installed.
+- **Elsewhere:** the Sentry project per environment, the stock photo API keys (into `.env`, with the providers listed in `CLAUDE.md`) and the image generation account if `/web-build` will use them, and the analytics projects where installed.
 - **With the backend:** confirm the backend contract from `security` with the backend developer, item by item, before the first integration.
 
 Then **offer to walk me through it live.** Once staging exists, record the app URLs, the dev and test commands, and the sync commands in `CLAUDE.md`.

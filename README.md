@@ -87,8 +87,10 @@ Backend Blueprint writes: feature-areas · business-rules · app-flows · (later
       Design:  screen inventory → references → canvas designs → your approval   [Designed]
       Build:   screens on mock data through the real data layer → tests          [Built]
                → /screen-specs → pushed to the backend                           [Specced]
-           ↓   the backend reviews and builds the area, writes its api-docs
-      /web-integrate  → real endpoints, orphan audit, backend-issues handoff      [Integrated]
+           ↓   once every phase-1 area is Specced, the backend designs its schema,
+               then builds the areas in order, writing api-docs per area
+      /web-integrate  → per area as its api-docs land: real endpoints,
+                        orphan audit, backend-issues handoff                      [Integrated]
 
 /web-issue-fix — any time, for anything that already exists
 ```

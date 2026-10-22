@@ -24,9 +24,10 @@ How code moves from a pull request to production. The checks and runners are nam
 | --- | --- | --- | --- |
 | **Deployed by** | Vercel, on every PR | Pipeline 2, on every merge to `main` | Pipeline 3, manually |
 | **Domain** | `*.vercel.app` | `staging.{domain}` | `app.{domain}` |
-| **Backend** | Mock mode, passing through to the staging API | Staging API; mock mode with passthrough while any unit is un-integrated, direct after | Production API, direct |
 | **Env values** | Vercel preview environment | Vercel staging project | Vercel production project, separate values |
 | **Error tracking** | Sentry `preview` | Sentry `staging` | Sentry `production` |
+
+Which backend and mode each environment runs against is `tech-stack` → Services' table; it is not repeated here.
 
 Staging and production are **two Vercel projects** on the same repo, so each has its own environment values, domain and deployment history, and a rollback on one never touches the other.
 

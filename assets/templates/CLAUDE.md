@@ -44,7 +44,7 @@
 | Stack / framework | {{STACK}} |
 | Backend repo path | |
 | Backend stack | |
-| Backend OpenAPI spec | URL, or a path to a checked-in spec file |
+| Backend OpenAPI spec | URL, once the backend is built — blank until then |
 | Local API URL | |
 | Staging API URL | |
 | Production API URL | |
@@ -59,7 +59,7 @@
 | Design canvas | /design (Claude Design in Claude Code) |
 | Design reference library | Mobbin, through its MCP |
 | Image generation | Gemini, through its MCP |
-| Stock photo keys | |
+| Stock photo providers | Unsplash / Pexels — which are configured; their keys live in `.env` |
 | Analytics | off |
 | Production status | not yet launched |
 | Production deploy trigger | Deploy Production workflow, run manually on the verified commit |

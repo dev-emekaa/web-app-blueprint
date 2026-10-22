@@ -19,7 +19,7 @@ Read these from the project's `CLAUDE.md`. If a value isn't recorded there, ask 
 | **Design canvas** | `/design` where available. |
 | **Design reference library** | Mobbin, through its MCP. |
 | **Image generation** | Gemini through its MCP, or none. |
-| **Stock photo keys** | Unsplash, Pexels — which are configured. |
+| **Stock photo providers** | Unsplash, Pexels — which are configured. Their keys live in `.env`, never in `CLAUDE.md`. |
 | **Production status** | Not yet launched / launched. Decides how carefully existing screens are changed. |
 
 ## 1. How This Client Is Built
@@ -117,7 +117,7 @@ Screens are built one unit at a time; the navigation they sit in is not. Before 
 - **The shell:** sidebar or top navigation per `DESIGN.md`, the header's contents, where global search, notifications and the account menu live, and how it collapses on a phone.
 - **Global patterns the units will share:** the list page anatomy, the detail page anatomy, the create/edit pattern (page, dialog or sheet), the confirmation pattern, where errors and toasts appear.
 
-Design the shell and one example of each global pattern on the canvas, and **wait for my approval**. Then build the shell in `components/shared/`, replacing the placeholder `/web-setup` left, and the route groups' real layouts, before the first unit. Record the route map in `docs/design/routes.md`.
+Design the shell and one example of each global pattern on the canvas, and **wait for my approval**. Then build the shell in `components/shared/`, replacing the placeholder `/web-setup` left, and the route groups' real layouts, before the first unit. Record the route map in `docs/design/routes.md`. Phase 0 ends like a unit: its tests pass, the tracker's notes record it as done, and it is delivered as a PR per Step 12.
 
 ---
 
@@ -128,7 +128,7 @@ Design the shell and one example of each global pattern on the canvas, and **wai
 #### Step 1 — Select and scope
 
 - Run `pnpm docs:pull` so the docs are current, and commit what it changed.
-- Confirm in the UI tracker that the unit is `Ready` and the one above it is at least `Designed` (or, in whole-phase build mode, that every unit in scope is `Designed`). **Never design from a `Draft` row.** If the tracker does not exist yet, create it now from `feature-areas` (first phase) or the backend's `docs/phase-{n}/implementation-order.md` (later phase), one row per unit, all `Draft` until their docs exist, and commit it.
+- Confirm in the UI tracker that the unit is `Ready` and the one above it is at least `Designed` (or, in whole-phase build mode, that every unit in scope is `Designed`). **Never design from a `Draft` row.** If the tracker does not exist yet, create it now from `feature-areas` (first phase) or the backend's `docs/phase-{n}/implementation-order.md` (later phase), one row per unit, all `Draft` until their docs exist, and commit it. At the start of every session, advance any `Draft` row whose Readiness condition is now met to `Ready` with the date — first phase: its business rules and app flows exist; later phase: the backend's review has cleared it.
 - Read everything in Section 2.1 for this unit.
 - In a later phase: read the existing screen specs for every area the feature touches, and open the built screens' code, so every change is made to the real current screen. Apply the review's frontend actions.
 - Identify **prerequisites**: screens from other units this unit links to (a detail screen a list links into), shared components that must exist, auth states the flows assume. If a prerequisite is unbuilt, say so before starting rather than stubbing around it.
@@ -183,7 +183,7 @@ From the approved designs and the docs, list before writing code:
 - **Routes** to add or change, with their route group, loading and error files, and metadata.
 - **Screens and parts**: each component with its file, and which are client components and why.
 - **Shared and shadcn components** to add or generalise, with the reason.
-- **Data**: each query and mutation hook, its key, the endpoint shape the screen implies (method, path and fields, as the best reading of the flow; the backend will settle it), the fixtures, and the handlers with the state they keep.
+- **Data**: each query and mutation hook, its key, the endpoint shape the screen implies (method, path and fields, as the best reading of the flow; the backend will settle it), the provisional types in the area's `api/types.ts`, the fixtures, and the handlers with the state they keep.
 - **Forms**: each schema, its fields and the business rules each constraint comes from.
 - **Images**: every image the designs use, with its source decided per Step 8.
 - **Tests**: the states each screen's integration tests cover, the E2E journey for the unit's primary flow.
@@ -202,7 +202,7 @@ From the approved designs and the docs, list before writing code:
 
 For each image the designs call for, choose the source that fits:
 
-- **Stock photography** where the image is a real-world subject: search Unsplash or Pexels through their APIs with the keys in `CLAUDE.md`. If no key is configured, ask me for one and walk me through getting it (both offer free developer keys in minutes). Fetch the candidates, **look at them**, pick the one that matches the design's imagery rules, and record its attribution in `public/images/ATTRIBUTION.md`.
+- **Stock photography** where the image is a real-world subject: search Unsplash or Pexels through their APIs with the keys in `.env` (`CLAUDE.md` lists which providers are configured). If no key is configured, ask me for one and walk me through getting it (both offer free developer keys in minutes). Fetch the candidates, **look at them**, pick the one that matches the design's imagery rules, and record its attribution in `public/images/ATTRIBUTION.md`.
 - **Generated imagery** where the image is illustrative, abstract, or has to match the system's illustration style: generate it through the Gemini MCP when connected, with a prompt that states subject, style from `DESIGN.md` → Imagery, palette, composition, aspect ratio and size. **Look at the result**; regenerate until it fits.
 - **Neither available**: write the prompt into `docs/design/images.md` — one entry per image with its screen, purpose, exact size and aspect ratio, style, palette, composition, what must and must not be in it, and the file name and path it should be saved to — and build the screen with a tokenised placeholder of the right size. Tell me in the report; when I add the files and say so, place them.
 
@@ -227,7 +227,7 @@ When the walk passes, mark the unit `Built` with the date and commit.
 
 #### Step 11 — Screen specs and handoff
 
-1. Run `/screen-specs` in its **From designs** mode on this unit's built screens (the exports plus the code are its input), into the canonical file in the first phase or the phase file in a later one. Review the specs against the flows and rules as that skill says. Every action's endpoint is `pending` unless it already appears in the api-docs that arrived from the backend, as `documentation-conventions` says.
+1. Run `/screen-specs` in its **From designs** mode — its designs input is the unit's exports in `docs/design/screens/{unit}/`, checked against the built screens — into the canonical file in the first phase or the phase file in a later one. Review the specs against the flows and rules as that skill says. Every action's endpoint is `pending` unless it already appears in the api-docs that arrived from the backend, as `documentation-conventions` says.
 2. Commit the specs, then run `pnpm docs:push --specs {file}` for the unit's file (the canonical area file, or the phase feature's file) so the backend repo receives it, and tell me the backend can run its review for this unit.
 3. Mark the unit `Specced` with the date.
 
@@ -282,7 +282,7 @@ If any box cannot be ticked, say which and why rather than reporting the unit co
 Before Step 1, in a few lines:
 
 1. **State the phase, the unit and the stage** — design, build, or both; or whole-phase build. If I haven't said, take the next unit in the tracker through its next stage.
-2. **State the project values** from `CLAUDE.md` that change what you do: production status, whether the canvas, Mobbin and image generation are available, which stock keys exist. Ask for any that are missing.
+2. **State the project values** from `CLAUDE.md` that change what you do: production status, whether the canvas, Mobbin and image generation are available, which stock photo providers are configured. Ask for any that are missing.
 3. **Say whether Phase 0 is done.** If the information architecture and shell are not approved and built, we start there.
 
 Then go to Step 1. Do not summarise the workflow back to me — start it.

@@ -4,7 +4,7 @@ Security policy for this web client. The backend enforces every rule about who m
 
 ## Sessions and tokens
 
-- **Tokens live only in cookies the backend sets:** `HttpOnly`, `Secure`, `SameSite=Lax`, on the parent domain so the app and API subdomains share them. JavaScript never reads, stores or forwards a token. Nothing auth-related goes in `localStorage`, `sessionStorage`, Zustand or the URL. In mock mode the mock API re-homes the same cookies on the app's own origin, with the same attributes; production never runs mock mode, and a test proves the mock route is absent there.
+- **Tokens live only in cookies the backend sets:** `HttpOnly`, `Secure`, `SameSite=Lax`, on the parent domain so the app and API subdomains share them. JavaScript never reads, stores or forwards a token. Nothing auth-related goes in `localStorage`, `sessionStorage`, Zustand or the URL. In mock mode the mock API re-homes the same cookies on the app's own origin, with the same attributes; production never runs mock mode, and a test proves the mock route answers 404 with the mode off.
 - **`proxy.ts` is not authorization.** It redirects for convenience and refreshes for continuity. Every request to the backend carries the cookies and the backend decides. A page that renders is not proof the user may see its data; the data it shows came through the backend's checks.
 - **CSRF:** every non-GET request from the browser carries the custom header the backend requires (`X-Requested-With: fetch` unless the backend's api-docs name another). GET requests never change state, so a link or an image tag can never perform an action.
 - **Refresh is single-flight and bounded:** one refresh at a time, one retry per request, never for the refresh route itself. A failed refresh ends the session on this client: cache cleared, redirect to sign-in, other tabs told.
@@ -41,6 +41,7 @@ Set in `proxy.ts` (per-request, with a CSP nonce) and `next.config` (static head
 - **Server data lives only in the TanStack Query cache**, in memory. Persisted cache is off for authenticated data. A Zustand store that persists to storage holds UI preferences only.
 - **Sensitive fields are masked by default** (card last four, partial identifiers) and revealed by an explicit action, as the design system specifies. Autocomplete attributes are set so password managers work and so browsers do not autofill into the wrong field (`autocomplete="one-time-code"`, `"new-password"`).
 - **Clipboard, downloads and printing** of sensitive data happen only on an explicit user action.
+- **Authenticated file downloads** (exports, receipts, documents) use a short-lived signed URL the backend issues per request, or stream through `clientFetch`; never a long-lived public URL.
 - **Copy for auth failures is generic**: a sign-in error does not say whether the email exists.
 
 ## Third parties

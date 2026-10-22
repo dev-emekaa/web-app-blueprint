@@ -77,7 +77,7 @@ Walk every flow the fix touches, in mock mode or against staging as the issue re
 
 ### Step 7 — Report and deliver
 
-For each issue: what it was, the root cause, what changed, the tests added, the docs updated, and what the user will notice. Then a PR: branch off `origin/main`, push, give me the link. Never create the PR yourself. After the merge deploys to staging, run the touched E2E specs against staging and confirm.
+For each issue: what it was, the root cause, what changed, the tests added, the docs updated, and what the user will notice. Then a PR: branch off `origin/main`, push, give me the link. Never create the PR yourself. When I report the merge — in this session or the next — run the touched E2E specs against staging and confirm.
 
 ## 4. Adopting a Backend Handoff
 

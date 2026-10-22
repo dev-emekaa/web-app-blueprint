@@ -48,6 +48,7 @@ src/
     <feature-area>/             one folder per feature area, named after docs/feature-areas.md
       api/
         keys.ts                 query keys
+        types.ts                provisional types while the area is mocked; deleted at integration
         queries.ts              useX() hooks
         mutations.ts            useXMutation() hooks
       components/               screens and parts that belong to this area only
@@ -105,7 +106,7 @@ Native `fetch` everywhere, through two thin wrappers that share one core.
 | **409, 429, and other client errors** | Show the backend's message in a toast | Render the error boundary |
 | **5xx, network** | Toast with a retry | `error.tsx` boundary |
 
-Types come from `types/api.ts`, generated from the backend's OpenAPI spec (`pnpm api:types`), and are regenerated whenever the backend's api-docs change. Nobody writes an API type by hand. **Unknown enum values are tolerated**: a `switch` on a backend enum always has a default branch that renders something sensible, so the backend can add a value without breaking a released client.
+Types have two eras, split at integration. **While a feature is mocked**, no backend exists to generate from, so its types are provisional: hand-written in the feature's `api/types.ts` from the shapes its screens imply, used by its hooks, fixtures and handlers. **At integration** they are deleted and the hooks import from `types/api.ts`, generated from the backend's OpenAPI spec (`pnpm api:types`) and regenerated whenever the backend's api-docs change; from then on, nobody writes a type for a built endpoint by hand. **Unknown enum values are tolerated**: a `switch` on a backend enum always has a default branch that renders something sensible, so the backend can add a value without breaking a released client.
 
 ### Mock mode
 
@@ -117,6 +118,7 @@ Before a unit is integrated, its screens run on mock data that goes **through th
 - Each feature's `mocks/handlers.ts` maps `METHOD /path` to a resolver taking `{ params, query, body, session }` and returning the response, using the typed fixtures in `mocks/fixtures.ts`. `session` is the access cookie's decoded payload (`sub`, the user id), whichever side issued it; it is never verified, which is acceptable only because the mock API does not exist in production. A user the fixtures do not know is treated as the default persona. Resolvers keep state in the server process for the session (a created record appears in the next list) and simulate latency.
 - Fixtures are realistic: real-looking names, dates and amounts, every state the screen specs describe, edge cases (long text, empty lists, the maximum count). A mock that always succeeds hides the error states the design asked for, so handlers can be told to fail (`?mock=error`).
 - **Mock auth** (`src/mocks/auth.ts`) handles sign-in, sign-out, refresh and `me` until the sign-in unit is integrated: it sets and clears the real cookie names with JWT-shaped tokens carrying the same claims the backend's tokens carry, from the route handler's response, so `proxy.ts`, `serverFetch` and `clientFetch` run unchanged. The sign-in unit's own `mocks/` replaces it when that unit is built, and that unit's integration removes it.
+- **Real-time channels are not mocked.** In mock mode a screen that would subscribe polls its query against handler state instead; the real SSE or WebSocket channel is wired at integration, as the api-docs specify.
 - The same handlers feed MSW in tests through `src/mocks/msw.ts`. Integration removes the handlers for the unit's endpoints; the fixtures stay for tests.
 
 ## 4. Data layer

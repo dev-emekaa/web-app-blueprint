@@ -101,7 +101,7 @@ Do not proceed until I approve the audit.
 
 Per screen, in flow order:
 
-- **Align the hooks** in `features/{area}/api/` (the area each screen belongs to) to the api-docs: paths, parameters, request and response types from `types/api.ts`, pagination style, the query keys' shape. Keep the hook names the screens use.
+- **Align the hooks** in `features/{area}/api/` (the area each screen belongs to) to the api-docs: paths, parameters, request and response types imported from `types/api.ts` — the area's provisional `api/types.ts` is deleted — pagination style, the query keys' shape. Keep the hook names the screens use.
 - **Remove the handlers** for every integrated endpoint from that area's `mocks/handlers.ts`, so its traffic falls through to the real backend. Update the fixtures to the real shapes, because the tests keep using them.
 - **Wire the states** the api-docs define: every client-actionable error in the error table is presented as `coding-standards` → section 3 says, business-rule rejections show the backend's message, and state that changes in the background (the api-docs' Background behaviour section) is reflected by refetching on focus, polling, or the real-time channel the api-docs specify.
 - **Forms** map the backend's validation errors onto fields; the client schema is adjusted only where the api-docs show a constraint the rules did not.
@@ -151,7 +151,7 @@ Follow `testing`.
 
 Do not make me test manually.
 
-1. Ask the backend to reseed staging (or fire the reseed endpoint from the api-testing guide if I say so), and run the app locally in **direct** mode against the staging API on the local app URL, so the cookies travel the way they will in production. Where other units are still un-integrated, walk this unit's flows in direct mode and keep mock mode for the rest.
+1. Ask the backend to reseed staging (or fire the reseed endpoint from the api-testing guide if I say so), and run the app locally in **direct** mode against the staging API on the local app URL, so the cookies travel the way they will in production. The mode is one global switch, so walk this unit's flows in direct mode and stop where a flow crosses into an un-integrated unit's screens or a retained cross-unit mock; walk those crossings in a second pass in mock mode, whose passthrough still sends this unit's calls to the real backend.
 2. Walk every flow of the unit in the browser (through the browser tools where available, otherwise Playwright), signed in as each role the flows name, happy paths and the error paths the rules define, plus the background behaviours the api-docs describe (what the UI shows after a job runs).
 3. **Present the walk in the chat, flow by flow:** each screen, the calls it made (method and path, tokens shortened), what the UI showed, and whether it matched the flow and the design. End with everything that failed.
 4. For each failure: client-side → state the fix and **wait for my approval** before implementing; backend-side → Step 5.
@@ -186,7 +186,7 @@ Integrates every unit of the phase whose backend is `Built`, in tracker order, i
 
 - [ ] Every action and every piece of display data on every screen of the unit is served by its documented endpoint, or is logged as a backend issue with the screen marked pending.
 - [ ] Every mock for a built endpoint is removed; every remaining mock is listed with its reason.
-- [ ] `types/api.ts` regenerated; every hook typed from it; no hand-written API type.
+- [ ] `types/api.ts` regenerated; every integrated hook typed from it; no provisional type remains for this unit's endpoints.
 - [ ] Every client-actionable error in the api-docs is presented; background behaviour is reflected.
 - [ ] The orphan audit found nothing unexplained, or everything it found is logged.
 - [ ] Tests updated to the real shapes and passing, this unit's and earlier units'.
