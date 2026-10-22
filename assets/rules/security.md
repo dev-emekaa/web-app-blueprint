@@ -80,11 +80,11 @@ Set in `proxy.ts` (per-request, with a CSP nonce) and `next.config` (static head
 
 ## Backend contract
 
-What this client assumes the backend provides. Items 1 to 4 are lines in the Backend Blueprint's security rule (v1.0.1 and later); 5 is what its api-docs document per endpoint; 6 is its build rule. A backend that differs is a conflict to raise before the first integration, never a workaround on this side.
+What this client assumes the backend provides. Items 1 to 4 are lines in the Backend Blueprint's security rule (v1.1.0 and later); 5 is what its api-docs document per endpoint; 6 is its build rule. A backend that differs is a conflict to raise before the first integration, never a workaround on this side.
 
 1. **Cookies:** access and refresh tokens as `HttpOnly`, `Secure`, `SameSite=Lax` cookies, `Path=/`, on the parent domain (`.example.com`), so `app.example.com` and `api.example.com` share them. The sign-in and refresh responses set them; the sign-out response clears them.
 2. **CORS:** the exact app origin per environment, with credentials. Never `*`, never the request's own origin echoed back.
-3. **CSRF:** cookie-authenticated non-GET requests carry a CSRF defence; the backend's rule allows a token or a required custom header, and this client uses the header, so the backend rejects a non-GET without it.
+3. **CSRF:** the backend requires the custom header on every state-changing request and rejects a non-GET without it; this client sends it on every non-GET.
 4. **Refresh grace window:** a just-rotated refresh token is accepted for a short window (about ten seconds), so `proxy.ts`, `clientFetch` and several open tabs refreshing together do not trip reuse detection and sign the user out.
 5. **Errors as documented:** 401 means no valid session (refresh or sign in), 403 means a valid session without permission (never refresh), and validation failures and every client-actionable error carry the shape and stable code the api-docs document for that endpoint.
 6. **Additive changes only** once this client is in production, or a coordinated deploy for a breaking one, as the backend's build rules say.

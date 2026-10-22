@@ -55,7 +55,7 @@ Build only the unit I name. Endpoints from other units are integrated only where
 | `app-flow-{{unit}}` | The sequence each screen's calls must follow, and the system actions whose results the UI shows. |
 | `business-rules-{{unit}}`, `business-rules-shared.md` | The rejections the UI must present, the transitions it must reflect. |
 | The backend's **client handoff** messages | What changed since the specs, when a backend fix landed before this integration. |
-| `docs/integration-handoff/backend-issues.md` | The open issues this unit may be waiting on. |
+| `docs/integration-handoff/backend-issues-web.md` | This client's handoff file: the open issues this unit may be waiting on. |
 
 **Standards**: `coding-standards` (sections 3 to 5 above all), `security`, `testing`; `analytics` where installed. Follow them as written.
 
@@ -80,7 +80,7 @@ Build only the unit I name. Endpoints from other units are integrated only where
 - Confirm the unit reads `Specced` in the UI tracker, `Built` in the backend's tracker, and that `api-docs-{{unit}}` exists. If a prerequisite unit is not yet `Integrated`, say so before starting.
 - `pnpm docs:pull`, commit what it changed, then regenerate `types/api.ts`. A generation error is a backend issue to log before anything else.
 - Read every file in Section 2 for this unit, and the api-docs of every area its screens use.
-- Read `docs/integration-handoff/backend-issues.md` for open issues touching this unit.
+- Read `docs/integration-handoff/backend-issues-web.md` for open issues touching this unit.
 
 ### Step 2 — Audit → **wait for my approval**
 
@@ -121,7 +121,7 @@ Scan `api-docs-{{unit}}` and confirm every endpoint listed for this unit is now 
 
 ### Step 5 — Backend issues handoff
 
-Anything that originates on the backend — a missing endpoint, a missing or wrong field, a wrong status, behaviour that contradicts the docs, a CORS or cookie problem — is logged in `docs/integration-handoff/backend-issues.md`, one entry per issue:
+Anything that originates on the backend — a missing endpoint, a missing or wrong field, a wrong status, behaviour that contradicts the docs, a CORS or cookie problem — is logged in `docs/integration-handoff/backend-issues-web.md` — this client's handoff file; each client repo writes only its own — one entry per issue:
 
 ```markdown
 ### {ISSUE-ID} · {screen or flow} · `METHOD /path`
@@ -132,7 +132,7 @@ Anything that originates on the backend — a missing endpoint, a missing or wro
 - **Status:** open
 ```
 
-The backend reads this file, fixes through `/backend-issue-fix`, deploys to staging, and appends a resolution line setting the status to `deployed`. When that lands, return to the screen, finish the wiring, and set the status to `verified`. When every entry of a phase is `verified`, move them to `backend-issues-resolved.md`, grouped by phase, so the active file stays short.
+The backend reads this file, fixes through `/backend-issue-fix`, deploys to staging, and appends a resolution line setting the status to `deployed`. When that lands, return to the screen, finish the wiring, and set the status to `verified`. When every entry of a phase is `verified`, move them to `backend-issues-web-resolved.md`, grouped by phase, so the active file stays short.
 
 If an issue blocks a screen, integrate everything else, log it, and say clearly in the report which screens wait on it.
 

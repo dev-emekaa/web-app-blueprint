@@ -40,7 +40,7 @@ Universal and project-agnostic, for the web client's repo. Project specifics liv
 | Approved designs | `docs/design/screens/{unit}/` | `/web-build`: exports of the approved screens, one folder per unit |
 | Image prompts | `docs/design/images.md` | `/web-build`, only when an image has to be generated outside the session |
 | Screen specs | `docs/screen-specs/` (first phase) · `docs/phase-{n}/features/{feature}/screen-specs-{feature}.md` (later) | `/screen-specs`, from the built UI. See ownership below |
-| Backend issues | `docs/integration-handoff/backend-issues.md` · `backend-issues-resolved.md` | `/web-integrate` and `/web-issue-fix`; the backend appends resolutions |
+| Backend issues | `docs/integration-handoff/backend-issues-{client}.md` · its `-resolved` archive — one file per client, this repo's being `backend-issues-web.md` | `/web-integrate` and `/web-issue-fix`; the backend appends resolutions |
 | Analytics events | `docs/analytics-events.md` | `/web-setup`, `/web-build` and `/web-issue-fix`, where the `analytics` rule is installed |
 | Infra setup | `docs/infra/infra-setup.md` | `/web-setup`: hosting, domains, secrets, the steps only a person can do |
 
@@ -48,7 +48,7 @@ Universal and project-agnostic, for the web client's repo. Project specifics liv
 
 This repo has no `api-rbac` register. When `/screen-specs` runs here, an endpoint is written as `METHOD /path` only when it appears in the api-docs that arrived from the backend; everything else is `pending`.
 
-**The backend-issues file is shared.** This repo writes entries and pushes the file; the backend developer feeds its open entries to `/backend-issue-fix` and appends each resolution, and the next `docs:pull` brings the file back. A push of it first checks that the backend's copy is the version this repo last pulled, so an appended resolution is never overwritten. The list of doc files the backend's issue-fix skill asks to be copied to the client repo is exactly what `docs:pull` brings, so nothing is copied by hand.
+**The backend-issues file is shared, and per client.** Each client repo writes only its own file — this one writes `backend-issues-web.md` — so two clients never contend over one file. This repo pushes it; the backend's `/backend-issue-fix` reads its open entries and appends each resolution, and the next `docs:pull` brings the file back. A push of it first checks that the backend's copy is the version this repo last pulled, so an appended resolution is never overwritten. The list of doc files the backend's issue-fix skill asks to be copied to the client repo is exactly what `docs:pull` brings, so nothing is copied by hand.
 
 ## Folder and file names
 
