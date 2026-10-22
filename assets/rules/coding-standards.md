@@ -76,7 +76,7 @@ src/
   types/
     api.ts                      generated from OpenAPI — never edited
   styles/
-    globals.css                 Tailwind theme: the design.md tokens as CSS variables
+    globals.css                 Tailwind theme: the DESIGN.md tokens as CSS variables
   proxy.ts                      session refresh and auth redirects
 ```
 
@@ -156,7 +156,7 @@ The backend issues, rotates and checks tokens. Next.js and the browser only carr
 ## 7. Components
 
 - **Server by default.** `'use client'` goes on the smallest component that needs state, effects, browser APIs or event handlers, never on a page. Client components receive data as props from a Server Component or from a hook; they do not fetch on mount.
-- **shadcn components are ours.** Edit them in `components/ui/` to match `design.md`; never wrap one to restyle it. Add components with the shadcn CLI, then adjust.
+- **shadcn components are ours.** Edit them in `components/ui/` to match `DESIGN.md`; never wrap one to restyle it. Add components with the shadcn CLI, then adjust.
 - **Variants with `cva`**, states with `data-*` attributes (`data-state="open"`), styling through Tailwind. No inline styles except for values computed at runtime.
 - **One component per file**, named in PascalCase, file in kebab-case (`order-summary.tsx`). A screen is `{screen-name}-screen.tsx`; its parts live beside it in a folder once there are more than two.
 - **Props are typed with an interface**, named `{Component}Props`, and destructured. Boolean props read as predicates (`isOpen`, `canEdit`). Callbacks start with `on`.
@@ -193,29 +193,29 @@ No React Context for state that changes often; it re-renders every consumer. Con
 
 ## 11. Styling
 
-- **Tokens, not values.** Colors, spacing, radii, shadows and type sizes come from the CSS variables `styles/globals.css` defines from `design.md`, exposed as Tailwind utilities. Arbitrary values (`w-[13px]`, `text-[#333]`) need a comment saying why the scale did not fit.
+- **Tokens, not values.** Colors, spacing, radii, shadows and type sizes come from the CSS variables `styles/globals.css` defines from `DESIGN.md`, exposed as Tailwind utilities. Arbitrary values (`w-[13px]`, `text-[#333]`) need a comment saying why the scale did not fit.
 - **`cn()` merges classes**; conditional classes go through it, never through string concatenation.
 - **Dark mode** is CSS variables switched by `next-themes`; components never check the theme in JavaScript to pick a color.
 - **Responsive, mobile first**: base styles are the phone layout, breakpoints add from there. Touch targets at least 44px on touch layouts. No horizontal page scroll at any width.
 - **Class order** is Prettier's (`prettier-plugin-tailwindcss`), so diffs stay readable.
-- **Motion** follows `design.md`'s motion section: durations and easings from its tokens, `prefers-reduced-motion` respected everywhere, layout animations only through Motion's `layout` prop.
+- **Motion** follows `DESIGN.md`'s Motion section: durations and easings from its tokens, `prefers-reduced-motion` respected everywhere, layout animations only through Motion's `layout` prop.
 
 ## 12. Performance
 
-- **Images through `next/image`** with explicit sizes, from the backend's CDN domains listed in `next.config`. Above-the-fold images are `priority`; the rest lazy. Formats and sizes come from `design.md` → Imagery.
-- **Fonts through `next/font`**, self-hosted, with `display: swap`, two families at most.
+- **Images through `next/image`** with explicit sizes, from the backend's CDN domains listed in `next.config`. Above-the-fold images are `priority`; the rest lazy. Formats and sizes come from `DESIGN.md` → Imagery.
+- **Fonts through `next/font`**, as `DESIGN.md` names them: Google Fonts with `next/font/google`, other open-source fonts with `next/font/local`. Both are served from this app's own domain, with `display: swap`.
 - **Heavy, rarely used components load with `next/dynamic`**: editors, charts, maps, anything over ~50 KB that is below the fold or behind an action.
 - **Lists over ~100 rows are virtualised**; everything else is paginated as the api-docs allow.
 - **`memo`, `useMemo` and `useCallback` are applied where a profile shows the cost**, not by habit. React Compiler, where enabled, makes most of them redundant.
 - **Third-party scripts** load through `next/script` with the least eager strategy that works.
-- **The bundle is checked** (`pnpm analyze`) when a dependency is added, and a route's first-load JS stays under the budget `design.md` or `CLAUDE.md` records (default 200 KB).
+- **The bundle is checked** (`pnpm analyze`) when a dependency is added, and a route's first-load JS stays under the budget `CLAUDE.md` records (default 200 KB).
 
 ## 13. Errors and observability
 
 - **Errors render, they do not vanish.** A failed query shows the error state with retry; a failed mutation shows a toast with the backend's message; an uncaught render error reaches the nearest `error.tsx`.
 - **Sentry captures** uncaught errors, `error.tsx` boundaries and failed mutations with the request's method and path, never its body. Expected `ApiError`s (401, 403, 404, 422) are not reported.
 - **No `console.log` in committed code.** Debug logging goes through a `logger` that is silent in production.
-- **User-facing messages come from the backend's message keys** where the business rules define them, and from `design.md` → Content and voice otherwise.
+- **User-facing messages come from the backend's message keys** where the business rules define them, and from `DESIGN.md` → Content and Voice otherwise.
 
 ## 14. Code style
 

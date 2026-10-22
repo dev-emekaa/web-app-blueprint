@@ -140,7 +140,7 @@ ${c.b('Next')}
      the backend repo path above all, so the docs sync works.
   2. Start Claude Code and run ${c.b('/web-setup')} — it builds the foundation and the
      docs sync, then pulls the backend's docs into ${c.dim('docs/')}.
-  3. Run ${c.b('/design-system')} once the product docs are in — it writes ${c.dim('docs/design/design.md')}.
+  3. Run ${c.b('/design-system')} once the product docs are in — it writes ${c.dim('DESIGN.md')}.
   4. Run ${c.b('/web-build')} for the first feature area.
 
   ${n} skills installed to ${c.dim(opts.personal ? '~/.claude/skills' : '.claude/skills')}${

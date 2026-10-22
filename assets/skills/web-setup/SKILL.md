@@ -5,7 +5,7 @@ description: Set up a Next.js web client's foundation once, before the first scr
 
 # Web Setup
 
-Builds the foundation every screen stands on. It runs once per project, before the first `/web-build`. It needs no product docs and no design system, so it can run while those are being written — only the design tokens step waits for `design.md`, and it can be run again later for that step alone.
+Builds the foundation every screen stands on. It runs once per project, before the first `/web-build`. It needs no product docs and no design system, so it can run while those are being written — only the design tokens step waits for `DESIGN.md`, and it can be run again later for that step alone.
 
 It builds no screens: not even sign-in, which is a feature area designed and built from its own docs. It adds only what every web client needs. A library only some features use (tables, charts, editors, GSAP, Lottie, 3D) is added by the first build that needs it.
 
@@ -53,12 +53,12 @@ Exactly as `coding-standards` → Mock mode describes:
 - **Mock auth** in `src/mocks/auth.ts`: sign-in, sign-out, refresh and `me` for the conventional auth paths, setting and clearing the real cookie names with JWT-shaped values from the route handler's response, so `proxy.ts`, `serverFetch`, `clientFetch` and `useMe` work unchanged. The auth feature area's own `mocks/` replaces it.
 - One example feature folder, `features/_example/`, showing a query hook, a mutation hook, fixtures, handlers, a screen, and the server prefetch with `HydrationBoundary` on its page, deleted by the first real build.
 
-## Step 5 — Design tokens *(when `design.md` exists; otherwise placeholders, and re-run this step later)*
+## Step 5 — Design tokens *(when `DESIGN.md` exists; otherwise placeholders, and re-run this step later)*
 
-- `styles/globals.css` defining the design system's colors, radii, shadows, spacing and type scale as CSS variables under the shadcn names, light and dark, and exposing them to Tailwind.
+- `styles/globals.css` defining `DESIGN.md`'s colors, radii, spacing and type scale as CSS variables under the shadcn names — each color in `:root`, its `-dark` twin under `.dark` — and the shadows from its Elevation & Depth table, all exposed to Tailwind.
 - The shadcn components adjusted to the design system's radii, borders, focus rings and type.
-- Motion tokens (durations, easings) as CSS variables and a `lib/motion.ts` exporting them for Motion.
-- Root `DESIGN.md` pointing at `docs/design/design.md`, so design tools that look for it find it.
+- The fonts `DESIGN.md` names, loaded with `next/font`.
+- The durations and easings from its Motion table as CSS variables, and a `lib/motion.ts` exporting them for Motion.
 
 ## Step 6 — Test harness
 

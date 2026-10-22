@@ -46,7 +46,7 @@ Then:
 **Starting a new web client**
 
 1. `/web-setup` — the foundation, once: scaffold, HTTP and auth layer, data layer, mock mode, tests, pipelines, Vercel, and the docs sync that pulls the backend's docs into `docs/`.
-2. `/design-system` — the design system, once, after the PRD and feature areas exist. Researches the niche, proposes a direction for your approval, writes `docs/design/design.md`.
+2. `/design-system` — the design system, once, after the PRD and feature areas exist. Researches the niche, proposes a direction for your approval, writes `DESIGN.md` at the project root.
 3. `/web-build` — one feature area per session, in the order the backend's feature areas give, or the build stage of a whole phase in one session once every area is designed. First its screens are designed on the canvas and approved; then they are built on mock data, tested, and specced for the backend.
 4. The backend builds the area from your specs and writes its api-docs.
 5. `/web-integrate` — one feature area per session, or the whole phase: replaces the mocks with the real endpoints and verifies against staging.
@@ -67,7 +67,7 @@ Then:
 
 **`/web-setup`** — Builds the foundation every screen stands on: the project per the tech stack, `serverFetch`, `clientFetch` and `proxy.ts`, TanStack Query with server hydration, generated API types, the mock API that serves screens before the backend exists, design tokens, Vitest and Playwright, Sentry, the three CI/CD workflows, Vercel, the docs sync, and an infra guide for the steps only you can do.
 
-**`/design-system`** — Writes `design.md`, the source of truth for how every screen looks, moves and reads: principles, colors and typography with contrast checked, spacing, shape and depth, icons and imagery, motion, every component with every state, screen patterns, content and voice, responsive and accessibility rules. Researches competitors and category leaders on Mobbin first and proposes a direction for your approval.
+**`/design-system`** — Writes `DESIGN.md`, the source of truth for how every screen looks, moves and reads: principles, colors and typography with contrast checked, spacing, shape and depth, icons and imagery, motion, every component with every state, screen patterns, content and voice, responsive and accessibility rules. Researches competitors and category leaders on Mobbin first and proposes a direction for your approval.
 
 **`/web-build`** — Designs and builds one feature area's screens: every screen every flow needs, with its states, inventoried for your approval; designed on the `/design` canvas and iterated with you; then built with realistic mock data through the real data layer, with images sourced and checked, tests written, every flow walked against the approved designs, and the screen specs written for the backend.
 

@@ -34,7 +34,7 @@ Universal and project-agnostic, for the web client's repo. Project specifics liv
 | Doc | Path | Written by |
 | --- | --- | --- |
 | UI tracker | `docs/ui-implementation-order.md` (first phase) · `docs/phase-{n}/ui-implementation-order.md` (later) | `/web-build` on its first run in a phase |
-| Design system | `docs/design/design.md` | `/design-system` |
+| Design system | `DESIGN.md`, at the project root | `/design-system` |
 | Style tile | `docs/design/style-tile.html` | `/design-system`, only when the canvas is unavailable |
 | Route map | `docs/design/routes.md` | `/web-build`, in Phase 0 |
 | Approved designs | `docs/design/screens/{unit}/` | `/web-build`: exports of the approved screens, one folder per unit |
@@ -80,7 +80,7 @@ The gate for `Integrated` work is the backend's: a unit is integrated only once 
 ## Session rules
 
 - Before working on a unit, read its business rules, app flows and, where they exist, its screen specs and api-docs — plus `business-rules-shared.md` where it exists.
-- Before designing or building any screen, read `docs/design/design.md`. Before designing a later phase's screens, also read the existing screen specs and the built screens' code, so every existing screen is known.
+- Before designing or building any screen, read `DESIGN.md`. Before designing a later phase's screens, also read the existing screen specs and the built screens' code, so every existing screen is known.
 - Existing drafts are unvalidated: take stock of what exists first, and fix files rather than regenerating them.
 - Docs never mention issues, resolutions, decisions or the review process.
 - Docs move between the repos only with the sync scripts `/web-setup` installs. `pnpm docs:pull` brings the backend's docs here, including the backend's copy of the screen specs and the backend-issues file. `pnpm docs:push --specs {file}` sends one screen-spec file; `pnpm docs:push --handoff` sends the backend-issues files. Nothing is copied by hand, and a doc is never edited by hand to match what the code does.

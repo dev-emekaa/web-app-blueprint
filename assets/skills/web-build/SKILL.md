@@ -53,7 +53,7 @@ Nothing is designed that isn't traceable to a flow or a rule. If a screen seems 
 | --- | --- |
 | `prd` (or the phase's `frd`) | The product, its roles and their permissions, the features in scope. |
 | `feature-areas` | Every feature area, what each owns, the first phase's order. |
-| `docs/design/design.md` | The design system. Read in full before the first screen; every design decision defers to it. |
+| `DESIGN.md` | The design system, at the project root. Read in full before the first screen; every design decision defers to it. |
 | `app-flow-{{unit}}` | Every flow in the unit: entry trigger, each user action and system action, branches, error paths, the actor. The screen inventory is derived from this. |
 | `business-rules-{{unit}}`, and `business-rules-shared.md` where it exists | Field limits, allowed transitions, role gates, formulas the screen displays, error conditions the screen must show. |
 | `screen-specs-*` and the built screens *(later phases, or when the unit touches existing screens)* | What exists, exactly. |
@@ -86,7 +86,7 @@ Nothing is designed that isn't traceable to a flow or a rule. If a screen seems 
 
 **Fidelity to the design system**
 
-- `design.md` wins over taste, references and habit. A screen that needs something the system lacks is extended through `/design-system`'s later-phases rule, never styled ad hoc.
+- `DESIGN.md` wins over taste, references and habit. A screen that needs something the system lacks is extended through `/design-system`'s later-phases rule, never styled ad hoc.
 - No generic defaults: no placeholder gray boxes, no lorem ipsum, no template layouts, no spinners where the system specifies skeletons, no decoration the system does not call for.
 
 **Mock data, not mock logic**
@@ -99,7 +99,7 @@ Nothing is designed that isn't traceable to a flow or a rule. If a screen seems 
 
 - Build only the named unit. Shared components are generalised when a second screen needs them, not before.
 - Follow the existing patterns of the codebase. No new dependency outside `tech-stack` without asking; the build plan names what the unit needs and why.
-- Accessibility is part of done: keyboard, focus, labels, contrast, reduced motion, as `coding-standards` and `design.md` specify.
+- Accessibility is part of done: keyboard, focus, labels, contrast, reduced motion, as `coding-standards` and `DESIGN.md` specify.
 - Changing an existing screen in a later phase is surgical: the change the feature asks for, nothing else. If production is live, the change keeps the integrated data layer intact.
 
 **Images**
@@ -114,7 +114,7 @@ Screens are built one unit at a time; the navigation they sit in is not. Before 
 
 - **The navigation model:** which areas appear in the primary navigation, grouped how, in what order, for which roles; what lives in secondary navigation, in user menus, in settings. Each role's view of the shell.
 - **The route map:** the URL for every area's main screens, with its dynamic segments and the route group it belongs to. Stable URLs are a product decision; changing them later breaks links and analytics.
-- **The shell:** sidebar or top navigation per `design.md`, the header's contents, where global search, notifications and the account menu live, and how it collapses on a phone.
+- **The shell:** sidebar or top navigation per `DESIGN.md`, the header's contents, where global search, notifications and the account menu live, and how it collapses on a phone.
 - **Global patterns the units will share:** the list page anatomy, the detail page anatomy, the create/edit pattern (page, dialog or sheet), the confirmation pattern, where errors and toasts appear.
 
 Design the shell and one example of each global pattern on the canvas, and **wait for my approval**. Then build the shell in `components/shared/`, replacing the placeholder `/web-setup` left, and the route groups' real layouts, before the first unit. Record the route map in `docs/design/routes.md`.
@@ -153,17 +153,17 @@ Do not proceed until I approve the inventory and answer the questions.
 
 On Mobbin (`platform: web`; follow the Mobbin search skill where installed), one search per screen type in the inventory, within the product's category where the category matters and across admired products where the pattern is universal. Look at the actual screens. For each screen type, record in two or three lines what the strong references do: layout, hierarchy, how they handle the states and the density, what their actions look like. Keep it to what this unit needs; the design system already settled the global decisions. Cite each reference by its Mobbin link.
 
-References are never a source: coverage comes from the flows, constraints from the rules, appearance from `design.md`.
+References are never a source: coverage comes from the flows, constraints from the rules, appearance from `DESIGN.md`.
 
 #### Step 4 — Design the screens on the canvas
 
 Design in **batches of one flow** (or one screen type across flows where that reads better), in flow order, each batch presented for review before the next.
 
-- **Invoke the `/design` skill** with a brief per batch: the product in one line, the design system's direction (pointing at `docs/design/design.md`, which it reads), the screens with their purpose, content, actions and states from the inventory, the route each sits on, the shell it sits in, and the references' lessons. Ask for every state the inventory lists, as separate artboards where the difference is material.
+- **Invoke the `/design` skill** with a brief per batch: the product in one line, the design system's direction (pointing at `DESIGN.md`, which it reads), the screens with their purpose, content, actions and states from the inventory, the route each sits on, the shell it sits in, and the references' lessons. Ask for every state the inventory lists, as separate artboards where the difference is material.
 - **Where `/design` is not available** in this session (it needs a recent Claude Code with a claude.ai login), design each screen as a static HTML prototype in `docs/design/screens/{unit}/prototypes/`, built from the real design tokens, and open them for review the same way. The approval and export rules below are the same.
-- **Judge every artboard before showing it:** does it respect `design.md` token for token; does it carry every element the flow step needs and nothing the docs don't ask for; does it have its states; would a user know what to do next; does it look like this product or like a template. Fix before presenting.
+- **Judge every artboard before showing it:** does it respect `DESIGN.md` token for token; does it carry every element the flow step needs and nothing the docs don't ask for; does it have its states; would a user know what to do next; does it look like this product or like a template. Fix before presenting.
 - **Present the batch** with one line per screen on what it does and any decision I should look at. I will edit on the canvas or ask for changes; apply them, re-check against the rules and the system, and present again. A change that contradicts the business rules or the design system is raised, not silently applied.
-- **Content is real.** Labels, empty-state copy, error messages and confirmations are written now, in the voice `design.md` defines, from the business rules' messages where they exist. They become the built screen's copy.
+- **Content is real.** Labels, empty-state copy, error messages and confirmations are written now, in the voice `DESIGN.md` defines, from the business rules' messages where they exist. They become the built screen's copy.
 
 #### Step 5 — Approval and checkpoint
 
@@ -203,7 +203,7 @@ From the approved designs and the docs, list before writing code:
 For each image the designs call for, choose the source that fits:
 
 - **Stock photography** where the image is a real-world subject: search Unsplash or Pexels through their APIs with the keys in `CLAUDE.md`. If no key is configured, ask me for one and walk me through getting it (both offer free developer keys in minutes). Fetch the candidates, **look at them**, pick the one that matches the design's imagery rules, and record its attribution in `public/images/ATTRIBUTION.md`.
-- **Generated imagery** where the image is illustrative, abstract, or has to match the system's illustration style: generate it through the Gemini MCP when connected, with a prompt that states subject, style from `design.md` → Imagery, palette, composition, aspect ratio and size. **Look at the result**; regenerate until it fits.
+- **Generated imagery** where the image is illustrative, abstract, or has to match the system's illustration style: generate it through the Gemini MCP when connected, with a prompt that states subject, style from `DESIGN.md` → Imagery, palette, composition, aspect ratio and size. **Look at the result**; regenerate until it fits.
 - **Neither available**: write the prompt into `docs/design/images.md` — one entry per image with its screen, purpose, exact size and aspect ratio, style, palette, composition, what must and must not be in it, and the file name and path it should be saved to — and build the screen with a tokenised placeholder of the right size. Tell me in the report; when I add the files and say so, place them.
 
 After placing any image: optimise it (`next/image`, the right format and sizes), and look at the screen again.
@@ -252,7 +252,7 @@ When the walk passes, mark the unit `Built` with the date and commit.
 Builds every `Designed` unit of the phase through Stage B in one session, in tracker order. My input moves to the start and the end.
 
 1. **One plan for the phase → wait for my approval.** Step 6 for every unit, in one document, every question and new dependency collected in one place. The run covers `Designed` units in order and ends before the first that is not.
-2. **Build each unit in order — Steps 7 to 9 — in a fresh context.** Give each unit a subagent with its approved plan, told to read this skill, `.claude/rules/` and `docs/design/design.md` first. If subagents are unavailable, build in this session and compact between units. Never build units in parallel: they share the shell, the shared components and the mock state.
+2. **Build each unit in order — Steps 7 to 9 — in a fresh context.** Give each unit a subagent with its approved plan, told to read this skill, `.claude/rules/` and `DESIGN.md` first. If subagents are unavailable, build in this session and compact between units. Never build units in parallel: they share the shell, the shared components and the mock state.
 3. **Tests gate each unit.** A unit is complete when its suites and every earlier unit's pass; it is then committed, one commit per unit on one branch. A unit that fails, or meets anything its plan did not settle, stops the run with a report.
 4. **One verification walk** (Step 10) of every flow in the phase, marking each unit `Built`; then **screen specs for every unit** (Step 11), one push per unit, each marked `Specced`; one report, one PR.
 
@@ -265,7 +265,7 @@ A unit is not done until all of the following are true:
 - [ ] Every flow in the unit's app flow has a screen or screen state for every step, with branches and error paths.
 - [ ] Every screen in the approved inventory is designed, approved, exported, and built as approved, with every listed state.
 - [ ] Every field respects the business rules' constraints; every rule-defined state is designed and built.
-- [ ] Every screen defers to `design.md`; nothing is styled outside the tokens.
+- [ ] Every screen defers to `DESIGN.md`; nothing is styled outside the tokens.
 - [ ] Mock data goes through the real data layer; every flow walks end to end in mock mode; no fixture is imported by a screen.
 - [ ] Every image was seen before use and after placement, or its prompt is in `images.md` with a correctly sized placeholder in its spot.
 - [ ] Integration tests cover every screen state, the primary journey is in E2E, and every suite passes, this unit's and earlier units'.

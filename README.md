@@ -81,7 +81,7 @@ Each step is gated on the one before it. A skill whose inputs don't exist yet st
 Backend Blueprint writes: feature-areas · business-rules · app-flows · (later) api-docs
  │
  ├─ /web-setup        → the foundation, once; pulls the backend's docs
- ├─ /design-system    → docs/design/design.md, once
+ ├─ /design-system    → DESIGN.md, once
  └─ /web-build        → per feature area, in order:
       Phase 0: information architecture and the app shell, once
       Design:  screen inventory → references → canvas designs → your approval   [Designed]
@@ -100,16 +100,16 @@ Backend Blueprint writes: feature-areas · business-rules · app-flows · (later
 ## The skills
 
 ### `/web-setup`
-**The foundation, once.** Next.js scaffold with the folder structure and shadcn base set; the HTTP core with `serverFetch`, `clientFetch` (cookies, CSRF header, refresh-and-retry) and `proxy.ts` (cookie refresh, redirects, security headers); TanStack Query with server prefetch and hydration; generated API types; the mock API that lets screens run on realistic data before the backend exists, with passthrough to the real backend for everything already integrated; design tokens from `design.md`; Vitest, MSW and Playwright; Sentry; the three CI/CD workflows and Vercel; the docs sync with the backend repo; an infra guide for the steps only you can do.
+**The foundation, once.** Next.js scaffold with the folder structure and shadcn base set; the HTTP core with `serverFetch`, `clientFetch` (cookies, CSRF header, refresh-and-retry) and `proxy.ts` (cookie refresh, redirects, security headers); TanStack Query with server prefetch and hydration; generated API types; the mock API that lets screens run on realistic data before the backend exists, with passthrough to the real backend for everything already integrated; design tokens from `DESIGN.md`; Vitest, MSW and Playwright; Sentry; the three CI/CD workflows and Vercel; the docs sync with the backend repo; an infra guide for the steps only you can do.
 **Reads** the rules, `CLAUDE.md` · **Writes** the foundation, `docs/infra/infra-setup.md`
 
 ### `/design-system`
-**The source of truth for how everything looks, moves and reads.** Reads the product docs to understand what kind of product this is and who looks at it; researches competitors and category leaders on Mobbin and reverse-engineers what makes them work; proposes a direction with a style tile for your approval; then writes `design.md` — tokens that map onto shadcn's variables, every component with every state, patterns for list, detail, form and empty states, motion, imagery, content and voice, accessibility — and applies the tokens to the code. Built to avoid the generic.
-**Reads** PRD, brief, feature areas, rules, flows, brand assets · **Writes** `docs/design/design.md`
+**The source of truth for how everything looks, moves and reads.** Reads the product docs to understand what kind of product this is and who looks at it; researches competitors and category leaders on Mobbin and reverse-engineers what makes them work; proposes a direction with a style tile for your approval; then writes `DESIGN.md` in the DESIGN.md format, linted with Google's checker — tokens that map onto shadcn's variables, every component with every state, patterns for list, detail, form and empty states, motion, imagery, content and voice, accessibility — and applies the tokens to the code. Built to avoid the generic.
+**Reads** PRD, brief, feature areas, rules, flows, brand assets · **Writes** `DESIGN.md`
 
 ### `/web-build`
 **Design and build one unit's screens.** Derives every screen every flow needs, with its states, and gets the inventory approved; pulls references per screen type; designs the batch on the `/design` canvas (or as HTML prototypes where the canvas is unavailable) and iterates with you until approved; then builds the screens with realistic mock data through the real hooks, sources images (stock, looked at before use; generated; or a prompt in `images.md`), writes the tests, walks every flow against the approved designs, and runs `/screen-specs` so the backend can build. Two stages with a checkpoint at approval, or a whole phase's build stage in one session with subagents.
-**Reads** flows, rules, design.md, existing screens · **Writes** designs, screens, mocks, tests, screen specs
+**Reads** flows, rules, DESIGN.md, existing screens · **Writes** designs, screens, mocks, tests, screen specs
 
 ### `/web-integrate`
 **Replace mocks with the real backend.** Audits every screen against the specs and the api-docs first (build gaps, design gaps, missing endpoints); aligns the hooks to the api-docs and removes the handlers; wires every documented error and background behaviour; audits for orphan endpoints; logs anything the backend must fix in a handoff file the backend reads; updates the tests to the real shapes; walks every flow against staging and names the backend commit verified. One unit per session, or a whole phase in order.

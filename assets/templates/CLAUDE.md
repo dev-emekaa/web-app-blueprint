@@ -10,7 +10,7 @@
 | API testing *(from the backend)* | `docs/api-testing/` |
 | Phase folders *(from the backend, plus this repo's UI tracker and the phase's screen specs)* | `docs/phase-{n}/` |
 | UI tracker, first phase | `docs/ui-implementation-order.md` |
-| Design system | `docs/design/design.md` |
+| Design system | `DESIGN.md` (project root) |
 | Style tile *(only without the canvas)* | `docs/design/style-tile.html` |
 | Route map | `docs/design/routes.md` |
 | Approved designs | `docs/design/screens/` |
@@ -55,7 +55,7 @@
 | Test commands | |
 | API types command | |
 | Docs sync commands | |
-| Design system | none yet — `/design-system` records the version here |
+| Design system | not written yet — `/design-system` updates this |
 | Design canvas | /design (Claude Design in Claude Code) |
 | Design reference library | Mobbin, through its MCP |
 | Image generation | Gemini, through its MCP |

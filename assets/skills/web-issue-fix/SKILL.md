@@ -23,7 +23,7 @@ This skill handles any change to what already exists:
 
 - a bug in a screen, flow or integration, found by me, by QA, by Sentry, or by a user;
 - a change the backend's **client handoff** message requires, after `/backend-issue-fix` changed or added endpoints;
-- a design correction (a screen drifted from its approved export or from `design.md`), an accessibility or performance problem, a copy change;
+- a design correction (a screen drifted from its approved export or from `DESIGN.md`), an accessibility or performance problem, a copy change;
 - a small product change to an existing screen that I ask for directly, with the docs updated to match.
 
 It does not design, build or integrate a new unit: that is `/web-build` and `/web-integrate`. A "fix" that needs a new screen is routed there.
@@ -34,7 +34,7 @@ I will send one issue or a list. For each, follow Section 3.
 
 These apply to every change.
 
-- **Standards as written:** `coding-standards`, `security`, `testing`, `design.md`; `ci-cd` where a workflow or config changes; `analytics` where installed. This skill does not restate them.
+- **Standards as written:** `coding-standards`, `security`, `testing`, `DESIGN.md`; `ci-cd` where a workflow or config changes; `analytics` where installed. This skill does not restate them.
 - **Diffs are minimal and surgical.** Touch only what the issue needs. No drive-by refactors, no restyling, no "while I'm here".
 - **The docs stay true.** A fix that changes what a screen sends or shows updates its screen spec and hands it to the backend; a fix that changes how a screen looks updates its design export; a fix that changes an event updates `docs/analytics-events.md`; a fix that changes an environment variable updates `.env.example` and the infra guide. Docs never mention the issue; they describe the corrected behaviour as if it had always been so.
 - **The backend's behaviour is not worked around.** If the issue is on the backend, it is logged in `docs/integration-handoff/backend-issues.md` (format in `/web-integrate` Step 5) and the client waits.
@@ -47,7 +47,7 @@ These apply to every change.
 ### Step 1 — Validate
 
 1. **Reproduce it**: in mock mode when the issue is client-side, against staging on the local app URL when it involves the backend. Look at the screen; read the console and the network calls. An issue that cannot be reproduced is reported as such with what was tried, not fixed speculatively.
-2. **Confirm it against the docs**: the design export and `design.md` (is it a design drift?), the screen spec and app flow (is the screen doing what the flow says?), the business rules (is the limit or state right?), the api-docs (is the backend returning what it documents?).
+2. **Confirm it against the docs**: the design export and `DESIGN.md` (is it a design drift?), the screen spec and app flow (is the screen doing what the flow says?), the business rules (is the limit or state right?), the api-docs (is the backend returning what it documents?).
 3. **Classify it:**
    - **Client bug** — the code does not do what the docs say. Fix here.
    - **Backend bug** — the endpoint does not do what the api-docs say. Log it; stop on this issue.
@@ -69,7 +69,7 @@ Make the change. Run the test; it passes. Run the suite for the unit and for any
 
 ### Step 5 — Docs
 
-Per the constraints: the screen spec (committed, then `pnpm docs:push --specs {file}` for the file that holds the changed screen — its canonical area file, or its phase file before promotion), the design export, `images.md`, `analytics-events.md`, `.env.example`, the infra guide, `e2e/README.md` — whichever the fix touched. A backend issue found here goes in the handoff file: `pnpm docs:pull` first, commit, then `pnpm docs:push --handoff`. `design.md` itself changes only through `/design-system`.
+Per the constraints: the screen spec (committed, then `pnpm docs:push --specs {file}` for the file that holds the changed screen — its canonical area file, or its phase file before promotion), the design export, `images.md`, `analytics-events.md`, `.env.example`, the infra guide, `e2e/README.md` — whichever the fix touched. A backend issue found here goes in the handoff file: `pnpm docs:pull` first, commit, then `pnpm docs:push --handoff`. `DESIGN.md` itself changes only through `/design-system`.
 
 ### Step 6 — Verify
 
