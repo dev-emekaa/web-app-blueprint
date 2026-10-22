@@ -132,7 +132,7 @@ Backend Blueprint writes: feature-areas · business-rules · app-flows · (later
 These install into `.claude/rules/`, loaded at the start of every session — except `ci-cd.md`, which loads only when a workflow, Vercel or Next config file is touched.
 
 - **`documentation-conventions.md`** — which docs arrive from the backend and are read-only here, which this repo owns, how screen specs change hands, the UI tracker and its six readiness values (Draft, Ready, Designed, Built, Specced, Integrated).
-- **`tech-stack.md`** — the tools: Next.js, TypeScript, Tailwind, shadcn/ui, TanStack Query, Zustand, nuqs, React Hook Form and Zod, Motion, Vitest and Playwright, Sentry, optional PostHog; GSAP, Lottie and 3D only when a feature needs them. And the services per environment on Vercel.
+- **`tech-stack.md`** — the tools: Next.js, TypeScript, Tailwind, shadcn/ui, TanStack Query, Zustand, nuqs, React Hook Form and Zod, Motion, EventSource and Socket.IO for real-time, Vitest and Playwright, Sentry, optional PostHog; GSAP, Lottie and 3D only when a feature needs them. And the services per environment on Vercel.
 - **`coding-standards.md`** — the architecture (Next.js renders, TanStack caches, the backend decides), the folder structure and dependency direction, the HTTP client and error handling, mock mode, the data layer, the auth flow with `proxy.ts`, routing, components, state, forms, effects, styling, performance, errors, code style, tests in this stack.
 - **`security.md`** — sessions and tokens, input and output, headers and CSP, environment and secrets, data in the browser, third parties, payments, supply chain, errors, personal data, and the **backend contract**: cookies on the parent domain, CORS with credentials, the CSRF header, the refresh grace window, status semantics.
 - **`testing.md`** — static, unit, integration (the bulk, with MSW), E2E (critical journeys against a deployment), smoke, manual QA; environments and data; the regression rule.
@@ -145,7 +145,7 @@ These install into `.claude/rules/`, loaded at the start of every session — ex
 
 The two repos share the docs through `pnpm docs:pull` and `pnpm docs:push`, which `/web-setup` installs and which read the backend repo path from `CLAUDE.md`. Pull brings the backend's docs here, including its copy of the screen specs once it owns them; `push --specs` sends one screen-spec file there and `push --handoff` sends this client's backend-issues file (`backend-issues-web.md` — each client writes only its own). The backend's `/backend-issue-fix` reads its open entries itself, appends each resolution, and writes a client handoff message that `/web-issue-fix` adopts.
 
-The backend must meet the contract in `security.md` → Backend contract: its `security.md` (v1.1.0 and later) states the cookie, CORS, CSRF and refresh-grace lines from its side; its api-docs document the error shapes.
+The backend must meet the contract in `security.md` → Backend contract: its `security.md` (v1.1.0 and later) states the cookie, CORS, CSRF and refresh-grace lines from its side, and (v1.2.0) that real-time connections accept the session cookies; its api-docs document the error shapes.
 
 ---
 
@@ -164,11 +164,11 @@ It writes `dist/web-app-blueprint/` and `dist/web-app-blueprint-v{version}.zip`,
 Every release is a version tag. Pushing one builds the zip and publishes it on the repo's **Releases** page:
 
 ```bash
-npm version minor        # bumps package.json, commits, and tags v1.1.0 (patch · minor · major)
+npm version minor        # bumps package.json, commits, and tags v1.3.0 (patch · minor · major)
 git push --follow-tags   # pushes the commit and the tag
 ```
 
-The zip appears under the release's **Assets** as `web-app-blueprint-v1.1.0.zip` — that is the file to share. The **Source code** archives GitHub adds to every release are the repo itself, not the folder version. A tag that doesn't match the `package.json` version fails the build, so the zip's name always matches its contents.
+The zip appears under the release's **Assets** as `web-app-blueprint-v1.3.0.zip` — that is the file to share. The **Source code** archives GitHub adds to every release are the repo itself, not the folder version. A tag that doesn't match the `package.json` version fails the build, so the zip's name always matches its contents.
 
 ---
 

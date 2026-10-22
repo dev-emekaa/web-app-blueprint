@@ -21,6 +21,7 @@ Next.js is the frontend only. The backend (NestJS or FastAPI, built with the Bac
 | Environment variables | `@t3-oss/env-nextjs` with Zod: validated at build, `NEXT_PUBLIC_` exposure explicit |
 | Session | HttpOnly cookies issued by the backend; `proxy.ts` refreshes them and redirects. Tokens are never readable by JavaScript |
 | Mocking | MSW for tests · this app's mock API route for the build-before-integration phase (`coding-standards` → Mock mode) |
+| Real-time | SSE through the browser's `EventSource` with credentials · WebSocket through the Socket.IO client with credentials, where the backend uses Socket.IO — both carry the session cookies, so no token is handled. Only where the api-docs specify a channel |
 | Dates | `date-fns` |
 | Animation | Motion (`motion/react`) for UI animation: transitions, micro-interactions, layout and gestures |
 | Animation, on demand | GSAP for scroll-driven and timeline choreography · `@lottiefiles/dotlottie-react` for vector animations · React Three Fiber for 3D. Installed only when a feature needs them, never by default |
