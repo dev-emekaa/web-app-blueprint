@@ -120,6 +120,7 @@ Before a unit is integrated, its screens run on mock data that goes **through th
 - **Mock auth** (`src/mocks/auth.ts`) handles sign-in, sign-out, refresh and `me` until the sign-in unit is integrated: it sets and clears the real cookie names with JWT-shaped tokens carrying the same claims the backend's tokens carry, from the route handler's response, so `proxy.ts`, `serverFetch` and `clientFetch` run unchanged. The sign-in unit's own `mocks/` replaces it when that unit is built, and that unit's integration removes it.
 - **Real-time channels are not mocked.** In mock mode a screen that would subscribe polls its query against handler state instead; the real SSE or WebSocket channel is wired at integration, as the api-docs specify.
 - The same handlers feed MSW in tests through `src/mocks/msw.ts`. Integration removes the handlers for the unit's endpoints; the fixtures stay for tests.
+- **A unit not yet `Integrated` is unreachable in production.** Once the product is live, a later phase's built-but-not-integrated screens land on `main` before their endpoints exist. Each feature's `index.ts` exports its readiness; the `(app)` layout renders `notFound()` for an un-integrated area's routes and hides its navigation entries when `NEXT_PUBLIC_APP_ENV` is `production`; `/web-integrate` flips the readiness when the unit is integrated; and a test proves no un-integrated route is reachable in production.
 
 ## 4. Data layer
 

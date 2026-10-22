@@ -172,4 +172,4 @@ The zip appears under the release's **Assets** as `web-app-blueprint-v1.3.0.zip`
 
 ---
 
-**Requires** Node 18 or later, and Claude Code. The `/design` canvas needs a recent Claude Code signed in to a claude.ai account; `/web-build` falls back to HTML prototypes without it. **License** proprietary — all rights reserved.
+**Requires** Node 22 or later, and Claude Code. The `/design` canvas needs a recent Claude Code signed in to a claude.ai account; `/web-build` falls back to HTML prototypes without it. **License** proprietary — all rights reserved.

@@ -136,7 +136,7 @@ The backend reads this file, fixes through `/backend-issue-fix`, deploys to stag
 
 If an issue blocks a screen, integrate everything else, log it, and say clearly in the report which screens wait on it.
 
-Run `pnpm docs:pull` first (the backend may have appended resolutions since Step 1), commit, then `pnpm docs:push --handoff`.
+The sequence matters: `pnpm docs:pull` and commit **before** writing the entries (the backend may have appended resolutions since Step 1), then write them, commit, and `pnpm docs:push --handoff` at once. If the push is refused because the backend's copy moved in between, pull again — the handoff file merges, nothing is lost — and push.
 
 ### Step 6 — Tests
 
@@ -158,7 +158,7 @@ Do not make me test manually.
 
 ### Step 8 — Update the tracker and report
 
-- Mark the unit `Integrated` with the date once every screen is wired. While a backend issue leaves a screen pending, the row stays `Specced` and its notes name the open issue ids and the screens that wait; it becomes `Integrated` when the last one is `verified`.
+- Mark the unit `Integrated` with the date once every screen is wired, and flip the unit's readiness in its `index.ts` so its routes are reachable in production (`coding-standards` → Mock mode). While a backend issue leaves a screen pending, the row stays `Specced` and its notes name the open issue ids and the screens that wait; it becomes `Integrated` when the last one is `verified`.
 - Report:
   - **Unit** and what now works end to end.
   - **Endpoints integrated**, grouped by screen; cross-unit endpoints marked.

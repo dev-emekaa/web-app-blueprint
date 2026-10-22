@@ -46,9 +46,10 @@ These apply to every change.
 
 ### Step 1 — Validate
 
-1. **Reproduce it**: in mock mode when the issue is client-side, against staging on the local app URL when it involves the backend. Look at the screen; read the console and the network calls. An issue that cannot be reproduced is reported as such with what was tried, not fixed speculatively.
-2. **Confirm it against the docs**: the design export and `DESIGN.md` (is it a design drift?), the screen spec and app flow (is the screen doing what the flow says?), the business rules (is the limit or state right?), the api-docs (is the backend returning what it documents?).
-3. **Classify it:**
+1. **Pull first**: `pnpm docs:pull`, commit what it changed, so the spec and handoff file you will touch are the backend's current versions.
+2. **Reproduce it**: in mock mode when the issue is client-side, against staging on the local app URL when it involves the backend. Look at the screen; read the console and the network calls. An issue that cannot be reproduced is reported as such with what was tried, not fixed speculatively.
+3. **Confirm it against the docs**: the design export and `DESIGN.md` (is it a design drift?), the screen spec and app flow (is the screen doing what the flow says?), the business rules (is the limit or state right?), the api-docs (is the backend returning what it documents?).
+4. **Classify it:**
    - **Client bug** — the code does not do what the docs say. Fix here.
    - **Backend bug** — the endpoint does not do what the api-docs say. Log it; stop on this issue.
    - **Doc error** — the docs disagree with each other or with an approved design. Report it to me with the options; do not pick one.
@@ -69,7 +70,7 @@ Make the change. Run the test; it passes. Run the suite for the unit and for any
 
 ### Step 5 — Docs
 
-Per the constraints: the screen spec (committed, then `pnpm docs:push --specs {file}` for the file that holds the changed screen — its canonical area file, or its phase file before promotion), the design export, `images.md`, `analytics-events.md`, `.env.example`, the infra guide, `e2e/README.md` — whichever the fix touched. A backend issue found here goes in the handoff file: `pnpm docs:pull` first, commit, then `pnpm docs:push --handoff`. `DESIGN.md` itself changes only through `/design-system`.
+Per the constraints: the screen spec (committed, then `pnpm docs:push --specs {file}` for the file that holds the changed screen — its canonical area file, or its phase file before promotion), the design export, `images.md`, `analytics-events.md`, `.env.example`, the infra guide, `e2e/README.md` — whichever the fix touched. A backend issue found here goes in the handoff file: write the entry, commit, `pnpm docs:push --handoff`; if the push is refused, pull (the file merges) and push again. `DESIGN.md` itself changes only through `/design-system`.
 
 ### Step 6 — Verify
 
@@ -77,7 +78,7 @@ Walk every flow the fix touches, in mock mode or against staging as the issue re
 
 ### Step 7 — Report and deliver
 
-For each issue: what it was, the root cause, what changed, the tests added, the docs updated, and what the user will notice. Then a PR: branch off `origin/main`, push, give me the link. Never create the PR yourself. When I report the merge — in this session or the next — run the touched E2E specs against staging and confirm.
+For each issue: what it was, the root cause, what changed, the tests added, the docs updated, and what the user will notice. Then a PR: branch off `origin/main`, push, give me the link. Never create the PR yourself. When I report the merge — in this session or the next — confirm that Pipeline 2's run on it passed, including its Playwright suite.
 
 ## 4. Adopting a Backend Handoff
 
@@ -98,4 +99,4 @@ A client handoff message from `/backend-issue-fix` lists items tagged `FIXED` / 
 - [ ] The suite passes: this unit's and everything sharing the changed components.
 - [ ] Every doc the fix touched is updated and pushed, with no mention of the issue.
 - [ ] The verification walk was presented and everything it caught is fixed.
-- [ ] The report and the PR link were given; the touched E2E specs passed on staging after the merge.
+- [ ] The report and the PR link were given; Pipeline 2's run on the merge passed.
