@@ -143,7 +143,7 @@ These install into `.claude/rules/`, loaded at the start of every session — ex
 
 ## Working with the Backend Blueprint
 
-The two repos share the docs through `pnpm docs:pull` and `pnpm docs:push`, which `/web-setup` installs and which read the backend repo path from `CLAUDE.md`. Pull brings the backend's docs here, including its copy of the screen specs once it owns them; `push --specs` sends one screen-spec file there and `push --handoff` sends this client's backend-issues file (`backend-issues-web.md` — each client writes only its own). The backend's `/backend-issue-fix` reads its open entries itself, appends each resolution, and writes a client handoff message that `/web-issue-fix` adopts.
+The two repos share the docs through `pnpm docs:pull` and `pnpm docs:push`, which `/web-setup` installs and which read the backend repo path from `CLAUDE.md`. Pull brings the backend's docs here, including its copy of the screen specs once it owns them; `push --specs` sends one screen-spec file there and `push --handoff` sends this client's two backend-issues files (`backend-issues-web.md` and its `-resolved` archive — each client writes only its own). The backend's `/backend-issue-fix` reads its open entries itself, appends each resolution, and writes a client handoff message that `/web-issue-fix` adopts.
 
 The backend must meet the contract in `security.md` → Backend contract: its `security.md` (v1.1.0 and later) states the cookie, CORS, CSRF and refresh-grace lines from its side, and (v1.2.0) that real-time connections accept the session cookies; its api-docs document the error shapes.
 
