@@ -26,7 +26,7 @@ Coverage is read to find untested logic, never enforced as a percentage.
 
 | | Unit | Integration | E2E | Manual QA |
 | --- | --- | --- | --- | --- |
-| **Backend** | None | MSW, from the shared handlers | The PR preview: mock mode, passing through to staging · Staging: the real backend, reseeded | Staging, reseeded |
+| **Backend** | None | MSW, from the shared handlers | The PR preview: mock mode, passing through to staging · Staging: the real backend, on its seed | Staging, on its seed |
 | **Session** | None | A mocked `me`, through `renderWithProviders` | The mock auth until the sign-in unit is integrated; real sign-in with the seeded test users after | Seeded test users |
 | **Data** | Built per test | Fixtures from `features/*/mocks/`, overridden per test with `server.use` | The backend's seed | The backend's seed |
 | **Browser** | — | jsdom | Chromium; WebKit and Firefox on the staging suite | A real browser |
