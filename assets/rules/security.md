@@ -60,8 +60,8 @@ Set in `proxy.ts` (per-request, with a CSP nonce) and `next.config` (static head
 ## Supply chain
 
 - **The lockfile is committed and CI installs with `--frozen-lockfile`.**
-- **New dependencies wait:** pnpm's `minimumReleaseAge` is set (seven days), so a package version published an hour ago cannot be installed, which blocks most hijacked releases.
-- **Install scripts are off by default** (pnpm's `onlyBuiltDependencies` allowlist) and enabled per package with a reason.
+- **New dependencies wait:** pnpm's `minimumReleaseAge` is set to seven days in `pnpm-workspace.yaml` (its default is one day), so a package version published an hour ago cannot be installed, which blocks most hijacked releases.
+- **Install scripts are off by default** (pnpm's `allowBuilds` map in `pnpm-workspace.yaml`, with `strictDepBuilds` on) and enabled per package with a reason.
 - **`pnpm audit` runs in CI**; a high or critical finding blocks the merge unless the PR records why it does not apply.
 - **GitHub Actions are pinned to a commit SHA**, not a tag.
 - **Dependabot or Renovate** opens update PRs that go through the same checks as any other.

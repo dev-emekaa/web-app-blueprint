@@ -164,11 +164,11 @@ It writes `dist/web-app-blueprint/` and `dist/web-app-blueprint-v{version}.zip`,
 Every release is a version tag. Pushing one builds the zip and publishes it on the repo's **Releases** page:
 
 ```bash
-npm version minor        # bumps package.json, commits, and tags v1.3.0 (patch · minor · major)
+npm version minor        # bumps package.json, commits, and tags v1.4.0 (patch · minor · major)
 git push --follow-tags   # pushes the commit and the tag
 ```
 
-The zip appears under the release's **Assets** as `web-app-blueprint-v1.3.0.zip` — that is the file to share. The **Source code** archives GitHub adds to every release are the repo itself, not the folder version. A tag that doesn't match the `package.json` version fails the build, so the zip's name always matches its contents.
+The zip appears under the release's **Assets** as `web-app-blueprint-v1.4.0.zip` — that is the file to share. The **Source code** archives GitHub adds to every release are the repo itself, not the folder version. A tag that doesn't match the `package.json` version fails the build, so the zip's name always matches its contents.
 
 ---
 

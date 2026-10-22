@@ -19,7 +19,7 @@ If the repository already has code, take stock first. Keep what meets the rules,
 
 ## Step 1 — Plan → **wait for my approval**
 
-State what exists, what will be created, and anything the rules leave to this project. Check the current stable version of each tool in `tech-stack` rather than relying on memory, and say which versions the scaffold will use.
+State what exists, what will be created, and anything the rules leave to this project. Check the current stable version of each tool in `tech-stack` rather than relying on memory, and say which versions the scaffold will use. Check the current names of the settings the rules name (pnpm's supply-chain settings above all) against each tool's current docs: they change between major versions.
 
 ## Step 2 — Scaffold the application
 
@@ -29,6 +29,7 @@ State what exists, what will be created, and anything the rules leave to this pr
 - **Environment handling:** `lib/env.ts` declaring every variable with Zod — including `NEXT_PUBLIC_APP_ENV` (`preview`, `staging`, `production`), which the readiness gate in `coding-standards` → Mock mode reads — and `.env.example` naming each with a comment and no secret values.
 - **Route groups** `(auth)` and `(app)`, each with a layout, `loading.tsx`, `error.tsx`, and a root `not-found.tsx`. The `(app)` layout renders the shell and prefetches `me`. Pages are placeholders that the builds replace.
 - **Fonts through `next/font`** and the theme provider, wired for dark mode.
+- **Where the product has a mobile client** (the audiences table in `CLAUDE.md`): serve `/.well-known/apple-app-site-association` (no extension, `application/json`) and `/.well-known/assetlinks.json` as public routes, excluded from `proxy.ts`'s matcher and never redirected, with that environment's mobile identifiers from the mobile repo's `CLAUDE.md`; and a public account-deletion-request page at the path the mobile repo records, since Google Play requires one on the web. Record both in the infra guide per environment.
 
 ## Step 3 — HTTP, auth and data layer
 

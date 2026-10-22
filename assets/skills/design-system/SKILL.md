@@ -20,6 +20,7 @@ Read these first; ask for anything missing.
 | Business rules and app flows, `docs/business-rules/`, `docs/app-flows/` | The states screens need (pending, failed, expired), the data types that recur (money, dates, statuses), the roles and how different their worlds are |
 | `CLAUDE.md` | The audience and client this repo is, and whether a second audience shares the brand |
 | Brand assets, if any | The logo system from the Ideas Blueprint, brand colors, a name, a tagline. The logo's color and geometry are inputs to the palette and shape language, not the other way round |
+| Another client's `DESIGN.md` for the same product, if one exists (at the sibling client repo path in `CLAUDE.md`) | The brand decisions — palette, type, voice, shape — are taken from it so the product looks like itself on every client; the web components, patterns and motion are this system's own |
 | An existing `DESIGN.md` | In a later phase: extend it, never regenerate it |
 
 If a frontend-design skill is installed in this Claude Code, read it as well; it sharpens the aesthetic judgement this skill asks for.

@@ -32,7 +32,7 @@ Coverage is read to find untested logic, never enforced as a percentage.
 | **Browser** | — | jsdom | Chromium; WebKit and Firefox on the staging suite | A real browser |
 
 - **Automated tests never touch production.** Production smoke tests are read-only, with a dedicated low-privilege account.
-- **E2E tests depend on the backend's seed**, reset through its reseed dev-tool endpoint before the suite runs. A test that creates data cleans it up or uses a record the seed marks as disposable.
+- **E2E tests depend on the backend's seed.** They use the records the seed marks as disposable and clean up what they create; they never reseed staging on their own, because manual QA and the backend's own verification share it. A reseed is asked for, through the backend's reseed dev-tool endpoint, when the seed has drifted.
 - **Integration tests start from the shared mock handlers** so a screen is tested against the same shapes it was built on; a test that needs a different response overrides the one handler it needs.
 
 ## Unit tests
