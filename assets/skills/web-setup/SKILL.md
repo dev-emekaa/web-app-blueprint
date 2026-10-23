@@ -30,6 +30,7 @@ State what exists, what will be created, and anything the rules leave to this pr
 - **Route groups** `(auth)` and `(app)`, each with a layout, `loading.tsx`, `error.tsx`, and a root `not-found.tsx`. The `(app)` layout renders the shell and prefetches `me`. Pages are placeholders that the builds replace.
 - **Fonts through `next/font`** and the theme provider, wired for dark mode.
 - **Where the product has a mobile client** (the audiences table in `CLAUDE.md`): serve `/.well-known/apple-app-site-association` (no extension, `application/json`) and `/.well-known/assetlinks.json` as public routes, excluded from `proxy.ts`'s matcher and never redirected, with that environment's mobile identifiers from the mobile repo's `CLAUDE.md`; and a public account-deletion-request page at the path the mobile repo records, since Google Play requires one on the web. Record both in the infra guide per environment.
+- **Where the product has a desktop client**: a public download page at `/download`, excluded from `proxy.ts`'s matcher, with its copy from the desktop repo's `docs/release/download-page.md` and one installer link per platform and architecture read from the `downloads.json` the desktop client's production pipeline writes next to its update feed, so a desktop release never needs a web deploy. Record it in the infra guide.
 
 ## Step 3 — HTTP, auth and data layer
 
