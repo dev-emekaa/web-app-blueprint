@@ -1,8 +1,8 @@
 # Web App Blueprint
 
-A docs-first workflow for designing, building and integrating web clients with Claude Code. Six skills and the rules they follow take a product from its requirements to a designed, built, tested and integrated Next.js app — and every screen traces back to a reviewed document and an approved design.
+Design and build a product's web app with Claude Code, then connect it to the real backend. Every screen follows one design system; each part of the app is designed for your approval, built and tested on realistic mock data, then connected to the backend's real endpoints. Six skills and the rules behind them, for Next.js · TypeScript · Tailwind CSS · shadcn/ui · TanStack Query, hosted on Vercel.
 
-It is the frontend half of a pair. The **Backend Blueprint** writes the product docs this one reads (feature areas, business rules, app flows, api-docs) and reads the screen specs this one writes. The stack is **Next.js · TypeScript · Tailwind CSS · shadcn/ui · TanStack Query**, hosted on Vercel.
+It works with the **Backend Blueprint**: it reads the backend's product docs and API docs, and sends back screen specs and issues.
 
 ---
 
