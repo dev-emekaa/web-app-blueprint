@@ -59,7 +59,7 @@ Then:
 
 **Taking over an existing web app**
 
-`/web-adopt` — once, after the backend has been adopted: documents the code the way these skills expect, with every fact citing its source, checks the backend contract, and lists where it departs from the rules; `/web-setup` then fills the foundation it says is missing. Then the project is run like any other.
+`/web-adopt` — once, after the backend has been adopted or built with the Backend Blueprint: documents the code the way these skills expect, with every fact citing its source, checks the backend contract, and lists where it departs from the rules; `/web-setup` then fills the foundation it says is missing. Then the project is run like any other.
 
 **Fixing an issue, or adopting a backend change**
 
