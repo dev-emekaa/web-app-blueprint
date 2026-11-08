@@ -73,7 +73,7 @@ Then:
 
 **`/design-system`** — Writes `DESIGN.md`, the source of truth for how every screen looks, moves and reads: principles, colors and typography with contrast checked, spacing, shape and depth, icons and imagery, motion, every component with every state, screen patterns, content and voice, responsive and accessibility rules. Researches competitors and category leaders first — on Mobbin when it's connected, otherwise on the web, plus any screenshots you add — and proposes a direction for your approval.
 
-**`/web-build`** — Designs and builds one feature area's screens: every screen every flow needs, with its states, inventoried for your approval; designed on the `/design` canvas and iterated with you; then built with realistic mock data through the real data layer, with images sourced and checked, tests written, every flow walked against the approved designs, and the screen specs written for the backend.
+**`/web-build`** — Designs and builds one feature area's screens: every screen every flow needs, with its states, inventoried for your approval; designed on the `/design` canvas and iterated with you — or, where a designer makes them, reviewed against the system and the rules; then built with realistic mock data through the real data layer, with images sourced and checked, tests written, every flow walked against the approved designs, and the screen specs written for the backend.
 
 **`/web-integrate`** — Replaces the mocks with the backend's real endpoints from the api-docs: an audit first, then the hooks aligned and handlers removed, every documented error and background behaviour wired, an orphan-endpoint check, a handoff file for anything the backend must fix, tests on the real shapes, and a walk of every flow against staging.
 
@@ -101,6 +101,6 @@ Rules load into every Claude Code session and apply to all the code it writes.
 
 ---
 
-**Requires** Claude Code, and a Next.js project (the setup skill creates it). Mobbin is optional: without it, the design skills research on the web and from any screenshots you put in `docs/design/references/`. The `/design` canvas needs a recent Claude Code signed in to a claude.ai account; the build skill falls back to HTML prototypes without it. Updates replace these files — any edits you made to a skill or rule are overwritten, so keep your own changes in `CLAUDE.md` or new rule files.
+**Requires** Claude Code, and a Next.js project (the setup skill creates it). Mobbin is optional: without it, the design skills research on the web and from any screenshots you put in `docs/design/references/`. Figma is optional, for projects where a designer makes the screens: connected through its MCP, or the build skill reads the designer's exports. The `/design` canvas needs a recent Claude Code signed in to a claude.ai account; the build skill falls back to HTML prototypes without it. Updates replace these files — any edits you made to a skill or rule are overwritten, so keep your own changes in `CLAUDE.md` or new rule files.
 
 © dev-emeka. All rights reserved. Licensed for use in your own projects; not for redistribution.

@@ -62,7 +62,7 @@ npx github:dev-emekaa/web-app-blueprint init --force
 
 - Skills and rules are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
 - `CLAUDE.md` is never overwritten: it holds your project's values.
-- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.4.0 init`. If an update doesn't seem to land: `npm cache clean --force`.
+- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.5.0 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 
@@ -102,7 +102,7 @@ How everything looks, moves and reads: researches the product's category, propos
 **Writes** `DESIGN.md`
 
 ### `/web-build`
-Designs and builds one feature area's screens: lists every screen its flows need, designs them for your approval, then builds them on realistic mock data with images and tests, checks every flow against the designs, and writes the screen specs the backend builds from.
+Designs and builds one feature area's screens: lists every screen its flows need, designs them for your approval, or reviews the ones a designer supplies, then builds them on realistic mock data with images and tests, checks every flow against the designs, and writes the screen specs the backend builds from.
 **Writes** the designs, screens, mocks, tests and screen specs
 
 ### `/web-integrate`
@@ -171,6 +171,7 @@ The zip appears under the release's **Assets** as `web-app-blueprint-v{version}.
 ## Requires
 
 - Node 22 or later, and Claude Code
+- Optional, when a designer makes the screens: Figma, connected through its MCP. Without it, `/web-build` and `/design-system` read the designer's exports
 - Optional, for design research: Mobbin, connected through its MCP. Without it, `/design-system` and `/web-build` research on the web, plus any screenshots you put in `docs/design/references/`
 - For the `/design` canvas: a recent Claude Code signed in to a claude.ai account — without it, `/web-build` designs as HTML prototypes instead
 
