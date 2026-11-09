@@ -62,7 +62,7 @@ npx github:dev-emekaa/web-app-blueprint init --force
 
 - Skills and rules are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
 - `CLAUDE.md` is never overwritten: it holds your project's values.
-- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.5.0 init`. If an update doesn't seem to land: `npm cache clean --force`.
+- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.5.1 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 
@@ -76,12 +76,13 @@ From the backend: feature areas · business rules · app flows · (later) API do
  ├─ /web-setup        the foundation, once; pulls the backend's docs
  ├─ /design-system    DESIGN.md, once
  └─ /web-build        per feature area, in order:
-      design   every screen it needs, designed for your approval        → Designed
-      build    screens on mock data, with tests                         → Built
-               → /screen-specs, sent to the backend                     → Specced
+      design   every screen it needs, designed for your approval → Designed
+               (or a designer's screens, reviewed)
+      build    screens on mock data, with tests                  → Built
+               → /screen-specs, sent to the backend              → Specced
       ↓ once every area is Specced, the backend designs its database, then
         builds the areas in order, writing each one's API docs
-    /web-integrate    real endpoints in place of the mocks              → Integrated
+    /web-integrate    real endpoints in place of the mocks       → Integrated
 
 /web-issue-fix — any time, for anything already built
 /web-adopt — once, to bring an existing app under the blueprint, after the backend
@@ -98,7 +99,7 @@ The foundation, once: the Next.js project, sign-in and the data layer, the mock 
 **Writes** the foundation, `docs/infra/infra-setup.md`
 
 ### `/design-system`
-How everything looks, moves and reads: researches the product's category, proposes a direction for your approval, then writes `DESIGN.md` — colours, type, every component and its states, layouts, motion, writing style and accessibility — and applies it to the code.
+How everything looks, moves and reads: researches the product's category, proposes a direction for your approval — or, where a designer makes the screens, records their system — then writes `DESIGN.md` — colours, type, every component and its states, layouts, motion, writing style and accessibility — and applies it to the code.
 **Writes** `DESIGN.md`
 
 ### `/web-build`
@@ -171,7 +172,7 @@ The zip appears under the release's **Assets** as `web-app-blueprint-v{version}.
 ## Requires
 
 - Node 22 or later, and Claude Code
-- Optional, when a designer makes the screens: Figma, connected through its MCP. Without it, `/web-build` and `/design-system` read the designer's exports
+- Optional, when a designer makes the screens — say so in the `Designs` row of `CLAUDE.md`: Figma, connected through its MCP. Without it, `/web-build` and `/design-system` read the designer's exports
 - Optional, for design research: Mobbin, connected through its MCP. Without it, `/design-system` and `/web-build` research on the web, plus any screenshots you put in `docs/design/references/`
 - For the `/design` canvas: a recent Claude Code signed in to a claude.ai account — without it, `/web-build` designs as HTML prototypes instead
 
