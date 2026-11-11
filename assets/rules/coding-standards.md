@@ -211,7 +211,7 @@ No React Context for state that changes often; it re-renders every consumer. Con
 - **Lists over ~100 rows are virtualised**; everything else is paginated as the api-docs allow.
 - **`memo`, `useMemo` and `useCallback` are applied where a profile shows the cost**, not by habit. React Compiler, where enabled, makes most of them redundant.
 - **Third-party scripts** load through `next/script` with the least eager strategy that works.
-- **The bundle is checked** (`pnpm analyze`) when a dependency is added, and a route's first-load JS stays under the budget `CLAUDE.md` records (default 200 KB).
+- **The bundle is checked** (`pnpm analyze`) when a dependency is added, and a route's first-load JS, as Next's build output reports it, stays under the budget `CLAUDE.md` records — default 200 KB for public routes, 300 KB for signed-in ones. A feature that would exceed it is loaded on interaction or behind a dynamic import.
 
 ## 13. Errors and observability
 

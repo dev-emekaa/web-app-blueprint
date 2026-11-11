@@ -65,4 +65,4 @@
 | Analytics | off |
 | Production status | not yet launched |
 | Production deploy trigger | Deploy Production workflow, run manually on the verified commit |
-| First-load JS budget | 200 KB |
+| First-load JS budget | 200 KB public · 300 KB signed-in |
