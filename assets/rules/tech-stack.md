@@ -18,6 +18,7 @@ Next.js is the frontend only. The backend (NestJS or FastAPI, built with the Bac
 | Global UI state | Zustand — only for state the server does not own (sidebar, drafts, wizard steps) |
 | URL state | `nuqs` — filters, sort, page and tab in the URL, typed |
 | Forms · validation | React Hook Form · Zod, through `@hookform/resolvers` |
+| Image generation *(optional)* | `@google/genai` (Gemini, the default) or `openai`, a dev dependency used only by `scripts/image-generate.mjs`; its key in `.env` |
 | Environment variables | `@t3-oss/env-nextjs` with Zod: validated at build, `NEXT_PUBLIC_` exposure explicit |
 | Session | HttpOnly cookies issued by the backend; `proxy.ts` refreshes them and redirects. Tokens are never readable by JavaScript |
 | Mocking | MSW for tests · this app's mock API route for the build-before-integration phase (`coding-standards` → Mock mode) |

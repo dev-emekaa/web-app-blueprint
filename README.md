@@ -62,7 +62,7 @@ npx github:dev-emekaa/web-app-blueprint init --force
 
 - Skills and rules are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
 - `CLAUDE.md` is never overwritten: it holds your project's values.
-- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.5.3 init`. If an update doesn't seem to land: `npm cache clean --force`.
+- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.6.0 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 
@@ -181,6 +181,7 @@ The zip appears under the release's **Assets** as `web-app-blueprint-v{version}.
 
 - Node 22 or later, and Claude Code
 - Optional, when a designer makes the screens — say so in the `Designs` row of `CLAUDE.md`: Figma, connected through its MCP. Without it, `/web-build` and `/design-system` read the designer's exports
+- Optional, for generated images: a Gemini or OpenAI API key in `.env` (`/web-setup` writes the script), or an image MCP you have configured. Without either, `/web-build` writes each image's prompt into `docs/design/images.md` for you to generate
 - Optional, for design research: Mobbin, connected through its MCP. Without it, `/design-system` and `/web-build` research on the web, plus any screenshots you put in `docs/design/references/`
 - For the `/design` canvas: a recent Claude Code signed in to a claude.ai account — without it, `/web-build` designs as HTML prototypes instead
 
