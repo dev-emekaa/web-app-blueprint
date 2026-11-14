@@ -19,6 +19,7 @@
 | Backend issues handoff | `docs/integration-handoff/` |
 | Analytics events *(with the analytics rule)* | `docs/analytics-events.md` |
 | Infra setup | `docs/infra/` |
+| Blueprint guides *(this client's; the backend's arrives with the docs sync)* | `docs/blueprint/` |
 
 ## Audiences and clients
 
