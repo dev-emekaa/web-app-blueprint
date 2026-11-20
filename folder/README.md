@@ -80,7 +80,7 @@ Then:
 
 **`/web-integrate`** — Replaces the mocks with the backend's real endpoints from the api-docs: an audit first, then the hooks aligned and handlers removed, every documented error and background behaviour wired, an orphan-endpoint check, a handoff file for anything the backend must fix, tests on the real shapes, and a walk of every flow against staging.
 
-**`/web-issue-fix`** — Resolves anything in what already exists: bugs, design drift, accessibility or performance problems, change requests, and the changes a backend handoff requires. Failing test first, surgical fix, docs updated, flows verified.
+**`/web-issue-fix`** — Resolves anything in what already exists: bugs, design drift, accessibility or performance problems, change requests, and the changes a backend handoff requires. Failing test first, surgical fix, docs updated, flows verified. Starts from the `open` entries in `docs/issues.md`, then the issues you give it.
 
 **`/web-adopt`** — Brings an existing web app under the blueprint, once, after the backend: inventories the code, says whether its stack fits, reconstructs the tracker, `DESIGN.md` and the screen specs with citations, and lists deviations as issues or a proposed phase. Changes no application code.
 

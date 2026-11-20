@@ -77,6 +77,7 @@ Nothing is designed that isn't traceable to a flow or a rule. If a screen seems 
 | Tests | Integration tests per screen state, unit tests for logic, E2E journeys for the unit's primary flow. | Build. |
 | Screen specs | `docs/screen-specs/screen-specs-{{unit}}.md` (or the phase file), written by `/screen-specs` from the built screens. | After the build. |
 | Backend issues | `docs/integration-handoff/backend-issues-web.md` — one entry per flow or rule a supplied design shows to be wrong, in `/web-integrate` Step 5's format. | Step 4, supplied designs only. |
+| Issues | `docs/issues.md` — one entry per problem seen in an earlier unit's screens, in the shape `documentation-conventions` gives. | Step 10, when one is noticed. |
 
 ---
 
@@ -231,7 +232,7 @@ Follow `testing` for structure and approach.
 
 #### Step 10 — Verify against the designs
 
-Walk every flow in the browser in mock mode (through the Chrome or in-app browser tools where available, otherwise with Playwright screenshots), screen by screen, state by state, and compare each with its approved export. Check the responsive layouts, dark mode, keyboard navigation through each form, and the accessibility check on each page. **Present the walk in the chat, flow by flow:** each screen, what was checked, and whether it matched. End with everything that did not match, and fix it before Step 11.
+Walk every flow in the browser in mock mode (through the Chrome or in-app browser tools where available, otherwise with Playwright screenshots), screen by screen, state by state, and compare each with its approved export. Check the responsive layouts, dark mode, keyboard navigation through each form, and the accessibility check on each page. **Present the walk in the chat, flow by flow:** each screen, what was checked, and whether it matched. End with everything that did not match, and fix it before Step 11. A problem noticed in an earlier unit's screens along the way is an entry in `docs/issues.md`, not a fix made here.
 
 If a design cannot be built as approved (a layout that does not survive real content lengths, a state the design missed), say what and propose the change; a change to an approved design is raised, not made quietly.
 

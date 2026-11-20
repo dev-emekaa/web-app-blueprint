@@ -63,7 +63,7 @@ npx github:dev-emekaa/web-app-blueprint init --force
 
 - Skills, rules and the guide in `docs/blueprint/` are overwritten, including any edits you made — run it on a clean working tree and read the diff before committing.
 - `CLAUDE.md` is never overwritten: it holds your project's values.
-- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.6.5 init`. If an update doesn't seem to land: `npm cache clean --force`.
+- To pin a version: `npx github:dev-emekaa/web-app-blueprint#v1.6.6 init`. If an update doesn't seem to land: `npm cache clean --force`.
 
 ---
 
@@ -112,7 +112,7 @@ Replaces the mocks with the real backend once its API docs land: checks the scre
 **Writes** the integration, the backend-issues file
 
 ### `/web-issue-fix`
-Changes what already exists: reproduces the issue, writes a failing test, fixes it, updates the docs it touched, and adopts changes the backend hands over.
+Changes what already exists — the issues you give it and the ones logged in `docs/issues.md`: reproduces the issue, writes a failing test, fixes it, updates the docs it touched, and adopts changes the backend hands over.
 **Writes** the fix, its tests, the docs it changes
 
 ### `/screen-specs`
@@ -152,7 +152,7 @@ Loaded by Claude Code at the start of every session — except `ci-cd.md`, which
   ```
 
   `git pull` the backend repo before pulling, and commit what you push into it.
-- **Issues:** `/web-integrate` logs what the backend must fix in `backend-issues-web.md`; the backend's `/backend-issue-fix` fixes it and hands back a message that `/web-issue-fix` adopts.
+- **Issues:** `/web-integrate` logs what the backend must fix in `backend-issues-web.md`; the backend's `/backend-issue-fix` fixes it and hands back a message that `/web-issue-fix` adopts. What this app must fix itself, when it isn't fixed on the spot, goes in `docs/issues.md` for `/web-issue-fix`.
 - **The backend's side:** it must meet `security.md` → Backend contract — cookies, CORS, the CSRF header, and real-time connections that accept the session cookies. Backend Blueprint v1.2.0 or later does.
 
 ---

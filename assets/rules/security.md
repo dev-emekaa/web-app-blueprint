@@ -64,7 +64,7 @@ Set in `proxy.ts` (per-request, with a CSP nonce) and `next.config` (static head
 - **Install scripts are off by default** (pnpm's `allowBuilds` map in `pnpm-workspace.yaml`, with `strictDepBuilds` on) and enabled per package with a reason.
 - **`pnpm audit` runs in CI**; a high or critical finding blocks the merge unless the PR records why it does not apply.
 - **GitHub Actions are pinned to a commit SHA**, not a tag.
-- **Dependabot or Renovate** opens update PRs that go through the same checks as any other.
+- **Dependabot or Renovate** opens one grouped PR per ecosystem for the week's minor and patch updates and one PR per major — a breaking change is reviewed alone, never skipped — all through the same checks as any other.
 
 ## Errors and logging
 

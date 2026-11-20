@@ -79,7 +79,7 @@ The semantics — the mode switch, passthrough, cookie re-homing, sessions, the 
 
 - **The three GitHub Actions workflows `ci-cd` defines:** PR checks (waiting on the Vercel preview before the smoke run), the staging deploy serialized in merge order with the `staging-current` tag, and the production deploy with its release-owner check, SHA-only `commit` input, smoke test, automatic rollback and `prod-*` tag.
 - **Vercel configuration** for two projects on one repo, with automatic production deploys off and previews on. Check Vercel's current documentation for CLI deploys and project linking; it changes.
-- **Dependabot or Renovate** configuration, and the security policies `security` → Supply chain requires.
+- **Dependabot or Renovate** configuration — weekly, one grouped PR per ecosystem for minor and patch updates and one PR per major, across packages and GitHub Actions — and the security policies `security` → Supply chain requires.
 
 ## Step 9 — Docs sync with the backend
 
